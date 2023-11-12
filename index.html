@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>画像をデータURLに変換</title>
+</head>
+<body>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="convertImageToDataURL()">変換</button>
+    <br>
+    <textarea id="outputTextArea" rows="10" cols="50"></textarea>
+
+    <script>
+        function convertImageToDataURL() {
+            var input = document.getElementById("imageInput");
+            var file = input.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var dataURL = e.target.result;
+                    document.getElementById("outputTextArea").value = dataURL;
+                    downloadTXT(dataURL);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function downloadTXT(dataURL) {
+            var link = document.createElement("a");
+            link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(dataURL);
+            link.download = "image_data.txt";
+            link.click();
+        }
+    </script>
+</body>
+</html>
