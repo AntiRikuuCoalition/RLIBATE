@@ -1,3 +1,55 @@
+function change_disp_by_user_or_guest(data) {
+	clear_global();
+	if (data.uid) {
+		uid = data.uid;
+		var cmd = data.cmd;
+		if (uid == "guest") {}
+		$('#b_open_login').hide();
+		$('#li_logout').show();
+		$('#b_open_create_user').hide();
+		$('#div_login').hide();
+		$('#b_open_notice').show();
+		$('#li_change_photo').show();
+		$('#li_change_passwd').show();
+		$('#create_new_user').hide();
+		$('.b_show_create_room').show();
+		var uid_data = {};
+		uid_data[data.uid] = [data.uname, data.imgs[0], data.status];
+		add_user_store(uid_data);
+		socket.json.emit('get_friend_list');
+		if (cmd == "login" || cmd == "create_user") {
+			fsid.set(data.sid, data.keep_login)
+		}
+		user_photo(data.imgs, data.uname, data.character_name);
+		if (data.created) {
+			show_photo_dialog()
+		}
+	} else {
+		data.uname = "ゲスト";
+		uid = "guest";
+		$('#b_open_login').show();
+		$('#li_logout').hide();
+		$('#b_open_create_user').show();
+		$('#b_open_notice').hide();
+		$('#li_change_photo').hide();
+		$('#li_change_passwd').hide();
+		$('#create_new_user').show();
+		$('.b_show_create_room').hide();
+		fsid.del();
+		user_photo(data.imgs, data.uname, data.character_name)
+	}
+	if (_MY_SP_ == 1 && (uid == "guest" || uid == "")) {
+		show_notice({
+			msg: "𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣, 𝙜𝙪𝙚𝙨𝙩."
+		}, 4000)
+	} else {
+		show_notice({
+			msg: "𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣, " + data.uname + " ."
+		})
+	}
+	get_page();
+	get_list(selected_category, searched_room_name, "")
+}
 const cssCode = `
 body#body {
 	font-size:12px;
@@ -275,55 +327,4 @@ function status_value() {
 	var status = $('#i_status').val();
 	status_change(status)
 }
-function change_disp_by_user_or_guest(data) {
-	clear_global();
-	if (data.uid) {
-		uid = data.uid;
-		var cmd = data.cmd;
-		if (uid == "guest") {}
-		$('#b_open_login').hide();
-		$('#li_logout').show();
-		$('#b_open_create_user').hide();
-		$('#div_login').hide();
-		$('#b_open_notice').show();
-		$('#li_change_photo').show();
-		$('#li_change_passwd').show();
-		$('#create_new_user').hide();
-		$('.b_show_create_room').show();
-		var uid_data = {};
-		uid_data[data.uid] = [data.uname, data.imgs[0], data.status];
-		add_user_store(uid_data);
-		socket.json.emit('get_friend_list');
-		if (cmd == "login" || cmd == "create_user") {
-			fsid.set(data.sid, data.keep_login)
-		}
-		user_photo(data.imgs, data.uname, data.character_name);
-		if (data.created) {
-			show_photo_dialog()
-		}
-	} else {
-		data.uname = "ゲスト";
-		uid = "guest";
-		$('#b_open_login').show();
-		$('#li_logout').hide();
-		$('#b_open_create_user').show();
-		$('#b_open_notice').hide();
-		$('#li_change_photo').hide();
-		$('#li_change_passwd').hide();
-		$('#create_new_user').show();
-		$('.b_show_create_room').hide();
-		fsid.del();
-		user_photo(data.imgs, data.uname, data.character_name)
-	}
-	if (_MY_SP_ == 1 && (uid == "guest" || uid == "")) {
-		show_notice({
-			msg: "𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣, 𝙜𝙪𝙚𝙨𝙩."
-		}, 4000)
-	} else {
-		show_notice({
-			msg: "𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣, " + data.uname + " ."
-		})
-	}
-	get_page();
-	get_list(selected_category, searched_room_name, "")
-}
+
