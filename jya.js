@@ -59,6 +59,25 @@ body#body {
 	padding:0;
 	margin:0;
 	overflow:hidden;
+
+}
+#d_received_msg {
+	bottom:150px;
+	top:auto;
+	width:360px;
+	height:85px;
+}
+#d_received_msg .comd {
+	height:13px;
+	overflow:hidden;
+	empty-cells:show;
+	display:inline-block;
+	width: 240px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
 }
 `;
 const styleElement = document.createElement('style');
