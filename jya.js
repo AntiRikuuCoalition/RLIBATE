@@ -55,7 +55,7 @@ body#body {
 	font-size:12px;
 	color:#333333;
 	line-height:1.7em;
-	background: linear-gradient(to bottom, black, black);
+	background: linear-gradient(to bottom, black, gray);
 	padding:0;
 	margin:0;
 	overflow:hidden;
