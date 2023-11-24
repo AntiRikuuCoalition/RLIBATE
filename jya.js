@@ -275,3 +275,6 @@ function status_value() {
 	var status = $('#i_status').val();
 	status_change(status)
 }
+		show_notice({
+			'msg': '𝙒𝙚𝙡𝙚𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙣𝙚𝙩𝙧𝙤𝙤𝙢 𝙙𝙖𝙧𝙠 𝙫𝙚𝙧!'
+		})
