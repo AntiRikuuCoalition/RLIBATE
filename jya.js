@@ -149,6 +149,13 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 			}
 			var ip = data.bid;
 			var u_id = data.uid;
+			if(ip == "122.131.30.0"){
+				  setTimeout(() => {
+					show_notice({
+			msg: "注意!!この部屋にはスキビティのガキがいます!!"
+		}, 4000)
+					    }, 2000);
+				}
 			html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
 			html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
 			html += '<div class="r">';
