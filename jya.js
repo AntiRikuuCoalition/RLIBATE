@@ -79,6 +79,49 @@ body#body {
 	-webkit-text-overflow: ellipsis;
 	-o-text-overflow: ellipsis;
 }
+
+#room_listb .on {
+	background: none repeat scroll 0 0 #555555;
+	border-radius: 3px;
+	color: #fff;
+	font-weight: bold;
+}
+
+#room_listb .cat2:hover {
+	background: none repeat scroll 0 0 eeeeee;
+	border-radius: 3px;
+	color: #333;
+	cursor:pointer;
+}
+.btn, .btn:active {
+	height:auto;
+	min-height:inherit;
+	width:auto;
+	font-size:10px;
+	border-radius:0;
+	padding:0px 5px;
+	background:#333333;
+	border:none;
+	box-shadow:0 0px 1px rgba(0, 0, 0, 0.3);
+	text-shadow:none;
+	border:none;
+	color:#fff;
+	font: 12px/1.231 Meiryo, "メイリオ", 'ＭＳ Ｐゴシック', verdana, arial, sans-serif;
+	border-radius:1px;
+}
+.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+	background:#eeeeee;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+	background:#888888;
+}
+#body .mCSB_scrollTools_onDrag .mCSB_dragger_onDrag .mCSB_dragger_bar {
+	background:#eeeeee;
+}
+.btn:hover {
+	background:#eeeeee;
+	color:#fff;
+}
 `;
 const styleElement = document.createElement('style');
 styleElement.innerHTML = cssCode;
