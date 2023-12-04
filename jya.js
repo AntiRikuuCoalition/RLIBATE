@@ -122,6 +122,53 @@ body#body {
 	background:#a5a5a5;
 	color:#fff;
 }
+#room_listb .cat2:hover {
+	background: none repeat scroll 0 0 #dbdbdb;
+	border-radius: 3px;
+	color: #333;
+	cursor:pointer;
+}
+#room_listb .cat1 {
+	font-weight:bold;
+	color:#000000;
+	line-height:2em;
+	margin-top:6px;
+}
+li.now {
+	border-left:3px solid #606060;
+}
+#comment {
+	border-color:#e7e7e7;
+	border-width:2px;
+	margin-left:-1%;
+	float:right;
+	width:86%;
+}
+.you img.user {
+	border:2px solid #797979;
+}
+img.selected {
+	border: 3px solid #797979;
+}
+.dialog .h b, .dialog_small .h b {
+	float:left;
+	padding-left:10px;
+	color:#000000;
+}
+.comd a {
+	color:#818181;
+	-moz-opacity:1.00;
+	opacity:1.00;
+	filter: alpha(opacity=100);
+	transition: opacity 100ms linear 50ms;
+}
+.comd a:hover {
+	color:#818181;
+	-moz-opacity:0.50;
+	opacity:0.50;
+	filter: alpha(opacity=50);
+	transition: opacity 100ms linear 50ms;
+}
 `;
 const styleElement = document.createElement('style');
 styleElement.innerHTML = cssCode;
