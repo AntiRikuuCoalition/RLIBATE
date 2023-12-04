@@ -110,16 +110,16 @@ body#body {
 	border-radius:1px;
 }
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
-	background:#eeeeee;
+	background:#a5a5a5;
 }
 .mCSB_scrollTools .mCSB_draggerRail {
 	background:#888888;
 }
 #body .mCSB_scrollTools_onDrag .mCSB_dragger_onDrag .mCSB_dragger_bar {
-	background:#eeeeee;
+	background:#a5a5a5;
 }
 .btn:hover {
-	background:#eeeeee;
+	background:#a5a5a5;
 	color:#fff;
 }
 `;
