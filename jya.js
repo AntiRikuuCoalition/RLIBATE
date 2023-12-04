@@ -50,6 +50,47 @@ function change_disp_by_user_or_guest(data) {
 	get_page();
 	get_list(selected_category, searched_room_name, "")
 }
+function date_f(date) {
+    var that = new Date(date);
+    var now = new Date();
+    var that_y = that.getFullYear();
+    var that_m = that.getMonth() + 1;
+    var that_d = that.getDate();
+    var that_h = that.getHours();
+    var that_mt = that.getMinutes();
+    var that_s = that.getSeconds() + that.getMilliseconds() / 1000;
+    var now_y = now.getFullYear();
+    var now_m = now.getMonth() + 1;
+    var now_d = now.getDate();
+
+    var datetime = '';
+
+    if (that_y != now_y) {
+        datetime += that_y + '年';
+    }
+
+    if (that_m != now_m || that_d != now_d) {
+        datetime += that_m + '月' + that_d + '日';
+    }
+
+    if (that_h < 10) {
+        that_h = '0' + that_h;
+    }
+
+    if (that_mt < 10) {
+        that_mt = '0' + that_mt;
+    }
+
+    if (that_s < 10) {
+        that_s = '0' + that_s.toFixed(2); // 小数点第二位まで表示
+    } else {
+        that_s = that_s.toFixed(2);
+    }
+
+    datetime += ' ' + that_h + '時' + that_mt + '分' + that_s + '秒';
+
+    return datetime;
+}
 const cssCode = `
 body#body {
 	font-size:12px;
