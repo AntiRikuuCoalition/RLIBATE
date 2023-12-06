@@ -1,3 +1,11 @@
+/* 
+This tool made by AAAAAAAAAAAA.
+Made at 2023/12/06.
+ver 1.0.
+ */
+
+//邪魔なアカウント作成メッセージ削除&ログインメッセージ変更
+
 function change_disp_by_user_or_guest(data) {
 	clear_global();
 	if (data.uid) {
@@ -50,6 +58,9 @@ function change_disp_by_user_or_guest(data) {
 	get_page();
 	get_list(selected_category, searched_room_name, "")
 }
+
+//時間の表示変更
+
 function date_f(date) {
     var that = new Date(date);
     var now = new Date();
@@ -91,6 +102,9 @@ function date_f(date) {
 
     return datetime;
 }
+
+//色の変更
+
 const cssCode = `
 body#body {
 	font-size:12px;
@@ -214,6 +228,9 @@ img.selected {
 const styleElement = document.createElement('style');
 styleElement.innerHTML = cssCode;
 document.head.appendChild(styleElement);
+
+//投稿のip抜き&その他情報表示
+
 function show_msg(room_id, res, ini_flag, target, nowHeight) {
 	$('.nonroom', $('#body')).each(function () {
 		$(this).show()
@@ -423,6 +440,9 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 		}
 	}
 }
+
+//投稿送信の文字数制限解除
+
 function send() {
 	clear_fnc_validator('div_msg');
 	var msg = $('#comment').val();
@@ -467,6 +487,9 @@ function send() {
 	}
 	check_room_list_update()
 }
+
+//個チャの文字数制限解除
+
 function send_pvm() {
 	var msg = $('#i_pvt_msg').val();
 	socket.json.emit('send_pvt_message', {
@@ -478,20 +501,25 @@ function send_pvm() {
 	$('#i_pvt_msg').val("");
 	clear_fnc_validator("d_pvt_msg");
 }
+
+//ステータスの文字数制限解除
+
 function status_value() {
 	var status = $('#i_status').val();
 	status_change(status)
 }
-var isKeyPressed = false; // キーが押されているかどうかのフラグ
+
+//矢印で一斉送信操作
+
+var isKeyPressed = false;
 
 $(document).keydown(function(e) {
   if (isKeyPressed) {
-    return; // キーが既に押されていた場合は処理を中断
+    return;
   }
+  isKeyPressed = true;
 
-  isKeyPressed = true; // キーが押された状態にする
-
-  if (e.keyCode === 37) { // ←キー
+  if (e.keyCode === 37) {
     $('#user_list li').each(function() {
       var member_id = $(this).attr("id");
       socket.json.emit('send_anime', {
@@ -500,7 +528,7 @@ $(document).keydown(function(e) {
       });
     });
   }
-  else if (e.keyCode === 39) { // →キー
+  else if (e.keyCode === 39) {
     $('#user_list li').each(function() {
       var member_id = $(this).attr("id");
       socket.json.emit('write_anime', {
@@ -512,5 +540,5 @@ $(document).keydown(function(e) {
 });
 
 $(document).keyup(function(e) {
-  isKeyPressed = false; // キーが放された状態にする
+  isKeyPressed = false;
 });
