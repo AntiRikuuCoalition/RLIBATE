@@ -482,4 +482,35 @@ function status_value() {
 	var status = $('#i_status').val();
 	status_change(status)
 }
+var isKeyPressed = false; // キーが押されているかどうかのフラグ
 
+$(document).keydown(function(e) {
+  if (isKeyPressed) {
+    return; // キーが既に押されていた場合は処理を中断
+  }
+
+  isKeyPressed = true; // キーが押された状態にする
+
+  if (e.keyCode === 37) { // ←キー
+    $('#user_list li').each(function() {
+      var member_id = $(this).attr("id");
+      socket.json.emit('send_anime', {
+        'uid': member_id,
+        'room_id': disp_room_id
+      });
+    });
+  }
+  else if (e.keyCode === 39) { // →キー
+    $('#user_list li').each(function() {
+      var member_id = $(this).attr("id");
+      socket.json.emit('write_anime', {
+        'uid': member_id,
+        'room_id': disp_room_id
+      });
+    });
+  }
+});
+
+$(document).keyup(function(e) {
+  isKeyPressed = false; // キーが放された状態にする
+});
