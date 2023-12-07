@@ -5,6 +5,10 @@ function GRS() {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
+    if (parseInt(result) <= 100) {
+    return result.replace(/^0+/, '');
+  }
+  return result;
 }
 var ip = GRS() + "." + GRS() + "." + GRS() + "." + GRS();
 console.log(ip);
