@@ -542,3 +542,9 @@ $(document).keydown(function(e) {
 $(document).keyup(function(e) {
   isKeyPressed = false;
 });
+
+//ようこそメッセージ(ロビー)変更
+
+const netRoomElement = document.querySelector('.tmg_tip');
+const newContent = '<b>𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣.</b><p>NETROOM Dark versionは様々な機能を追加する拡張機能です!<br>本来のチャットと少しかけ離れて楽しんでみてはいかがですか?</p>';
+netRoomElement.innerHTML = newContent;
