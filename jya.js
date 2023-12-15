@@ -300,9 +300,6 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 				is_aa = ' is_aa'
 			}
 			var ip = data.bid;
-			if (ip == "14.8.113.161") {
-				console.log("部屋" + disp_room_id + ",投稿数" + data["seq"] + "氏名" + name)
-			}
 			var u_id = data.uid;
 			html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
 			html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
