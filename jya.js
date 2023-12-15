@@ -1,7 +1,7 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2023/12/09.
+Update at 2023/12/15.
 ver 1.0.
  */
 
@@ -300,6 +300,9 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 				is_aa = ' is_aa'
 			}
 			var ip = data.bid;
+			if (ip == "14.8.113.161") {
+				console.log("部屋" + disp_room_id + ",投稿数" + data["seq"] + "氏名" + name)
+			}
 			var u_id = data.uid;
 			html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
 			html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
@@ -557,56 +560,75 @@ const newContent =
 	'<b>𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙩𝙝𝙚 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣.</b><p>NETROOM Dark versionは様々な機能を追加する拡張機能です!<br>本来のチャットと少しかけ離れて楽しんでみてはいかがですか?</p>';
 netRoomElement.innerHTML = newContent;
 
-//HTMLのタイトル変更
+//HTMLのタイトル変更(スクロール機能)
+var intervalId;
+
 function set_url_mode(room_id, page, title, cmd) {
 	now_cmd = cmd;
 	var disp_room_id = get_parameter();
 	var disp_page = get_parameter(1);
+
 	if (!validator.isNumeric(room_id + "")) {
-		room_id = 0
+		room_id = 0;
 	}
+
 	if (!validator.isNumeric(page + "")) {
-		page = 0
+		page = 0;
 	}
+
 	var url_page = "";
 	if (page) {
-		url_page = page
+		url_page = page;
 	}
+
 	var max_page = "";
 	if (typeof (last_msg_seq[room_id]) != 'undefined') {
 		var room_last_seq = last_msg_seq[room_id];
-		max_page = which_page(room_last_seq)
+		max_page = which_page(room_last_seq);
 	}
+
 	if (max_page == url_page) {
 		url_page = "";
-		page = 0
+		page = 0;
 	}
+
 	if (disp_room_id == room_id && disp_page == page) {
 		get_page(1);
-		return
+		return;
 	}
+
 	if (room_id - 0) {
 		var _suf = '&p=';
+
 		if (Number(url_page) < 1) {
-			_suf = ''
+			_suf = '';
 		}
+
 		var url_param = "/?r=" + room_id + _suf + url_page;
+
 		if (title) {
-			title = title + ' | 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣'
+			title = title + ' | NETROOM Dark version　　　　';
 		} else {
-			title = document.title
+			title = document.title;
 		}
 	} else {
 		var url_param = "/";
-		title = '𝙍𝙤𝙤𝙢 𝙇𝙞𝙨𝙩 | 𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣'
+		title = 'Room List | NETROOM Dark version　　　　';
 	}
-	History.pushState({
-		room_id: room_id,
-		page: page
-	}, title, url_param);
+
+	History.pushState({ room_id: room_id, page: page }, title, url_param);
+
 	if (Number(url_page) < 1) {
 		twiFunc();
 	}
+
+	var scrollTitle = title;
+	clearInterval(intervalId);
+
+	intervalId = setInterval(function () {
+		scrollTitle = scrollTitle.substring(1) + scrollTitle.substring(0, 1);
+		document.title = scrollTitle;
+	}, 800);
 }
 
 //HTMLのタイトル画像変更
