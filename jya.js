@@ -1,8 +1,8 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2023/12/15.
-ver 1.0.
+Update at 2023/12/17.
+ver β1.0.
  */
 
 //邪魔なアカウント作成メッセージ削除&ログインメッセージ変更
@@ -643,3 +643,547 @@ linkElement.href = newUrl;
 //ロゴ変更
 
 //https://i.imgur.com/5RYLbU1.png 一時休止
+
+//追加機能
+
+//ヘルプタブ表示
+var tabother = document.createElement("div");
+tabother.classList.add("tab");
+tabother.id = "tab_other";
+tabother.innerHTML = '<span>ヘルプ</span>';
+document.getElementById("box3").querySelector(".tabs").appendChild(tabother);
+function openNewTab() {
+	window.open("http://netroom.co.jp", "_blank");
+}
+var button = document.querySelector("#tab_other span");
+button.addEventListener("click", openNewTab);
+
+//大阪弁bot(nrajs様より)
+var toolButtonA = document.createElement('button');
+toolButtonA.id = 'tool_btn_a';
+toolButtonA.textContent = '大阪弁';
+toolButtonA.style.display = 'inline';
+var returnButton = document.getElementById('return_btn');
+returnButton.parentNode.insertBefore(toolButtonA, returnButton.nextSibling);
+toolButtonA.addEventListener('click', function () {
+	osakaaa();
+});
+
+// ツールボタンB
+var toolButtonB = document.createElement('button');
+toolButtonB.id = 'tool_btn_b';
+toolButtonB.textContent = 'ボタンb';
+toolButtonB.style.display = 'inline';
+returnButton.parentNode.insertBefore(toolButtonB, returnButton.nextSibling);
+toolButtonB.addEventListener('click', function () {
+	console.log("ボタンb");
+});
+
+// ツールボタンC
+var toolButtonC = document.createElement('button');
+toolButtonC.id = 'tool_btn_c';
+toolButtonC.textContent = 'ボタンc';
+toolButtonC.style.display = 'inline';
+toolButtonC.style.marginLeft = '10px'; // 左側に10pxのスペースを作る
+returnButton.parentNode.insertBefore(toolButtonC, returnButton.nextSibling);
+toolButtonC.addEventListener('click', function () {
+	console.log('ボタンc');
+});
+
+//ボタンのスタイル追加
+
+const cssCode1 =
+	`
+  #tool_btn_a,
+  #tool_btn_b,
+  #tool_btn_c {
+    background: none repeat scroll 0 0 #fff;
+    color: #333;
+    font-family: メイリオ;
+    font-size: 11px;
+    height: 24px;
+    line-height: 1;
+    margin-top: 9px;
+    padding: 0 15px;
+    vertical-align: top;
+  }
+  
+  #tool_btn_a:hover,
+  #tool_btn_b:hover,
+  #tool_btn_c:hover {
+    background:#efefef;
+  }
+`;
+const styleElement1 = document.createElement('style');
+styleElement1.innerHTML = cssCode1;
+document.head.appendChild(styleElement1);
+
+
+//大阪弁bot
+powero = false;
+var replacements = {
+	"ありがとうございました": "おおきに",
+	"あなた": "あんさん",
+	"あんな": "あないな",
+	"りますので": "るさかいに",
+	"りますから": "るさかいに",
+	"あります": "あるんや",
+	"あるいは": "せやなかったら",
+	"或いは": "せやなかったら",
+	"ありません": "おまへん",
+	"ありました": "おました",
+	"いない": "おらへん",
+	"いままでの": "ムカシからの",
+	"いままで": "本日この時まで",
+	"今まで": "本日この時まで",
+	"今までの": "ムカシからの",
+	"いまどき": "きょうび",
+	"いわゆる": "なんちうか，ようみなはんいわはるとこの",
+	"思いますが": "思うんやが",
+	"思います": "思うで",
+	"いただいた": "もろた",
+	"いただきます": "もらうで",
+	"いただきました": "もろた",
+	"いくら": "なんぼ",
+	"いるか": "おるか",
+	"いますので": "おるさかいに",
+	"いますから": "おるさかいに",
+	"いちど": "いっぺん",
+	"一度": "いっぺん",
+	"いますが": "おるけどダンさん",
+	"いました": "おったんや",
+	"います": "いまんねん",
+	"えない": "えへん",
+	"おかしな": "ケッタイな",
+	"おきました": "おいたんや",
+	"かなあ": "かいな",
+	"かならず": "じぇったい",
+	"かわいい": "メンコイ",
+	"おそらく": "ワイが思うには",
+	"恐らく": "ワイが思うには",
+	"おもしろい": "オモロイ",
+	"面白い": "おもろい",
+	"ください": "おくんなはれ",
+	"詳しく": "ねちっこく",
+	"くわしく": "ねちっこく",
+	"けない": "けへん",
+	"ございます": "おます",
+	"ございました": "おました",
+	"こちら": "ウチ",
+	"こんな": "こないな",
+	"この頃": "きょうび",
+	"このごろ": "きょうび",
+	"下さい": "くれへんかの",
+	"さようなら": "ほなさいなら",
+	"さん": "はん",
+	"しかし": "せやけどダンさん",
+	"しかたない": "しゃあない",
+	"仕方ない": "しゃあない",
+	"しなければ": "せな",
+	"しない": "せん",
+	"しばらく": "ちーとの間",
+	"している": "しとる",
+	"しました": "したんや",
+	"しまいました": "しもたんや",
+	"しますか": "しまっか",
+	"しますと": "すやろ，ほしたら",
+	"しまった": "しもた",
+	"しますので": "するさかいに",
+	"じゃ": "や",
+	"するとき": "するっちうとき",
+	"すべて": "ずぅぇえええぇぇええんぶ",
+	"すくなくとも": "なんぼなんでも",
+	"少なくとも": "なんぼなんでも",
+	"ずに": "んと",
+	"すごい": "どエライ",
+	"少し": "ちびっと",
+	"せない": "せへん",
+	"そこで": "ほんで",
+	"そして": "ほんで",
+	"そんな": "そないな",
+	"そうだろ": "そうやろ",
+	"それから": "ほんで",
+	"それでは": "ほなら",
+	"たとえば": "例あげたろか，たとえばやなあ",
+	"例えば": "例あげたろか，たとえばやなあ",
+	"たのです": "たちうワケや",
+	"たので": "たさかい",
+	"ただし": "せやけど",
+	"たぶん": "タブン．．．たぶんやで，わいもよーしらんがタブン",
+	"たくさん": "ようけ",
+	"だった": "やった",
+	"だけど": "やけど",
+	"だから": "やから",
+	"だが": "やけど",
+	"だと": "やと",
+	"だし": "やし",
+	"だろ": "やろ",
+	"だね。": "やね。",
+	"ちなみに": "余計なお世話やけど",
+	"ちょっと": "ちーとばかし",
+	"ったし": "ったことやねんし",
+	"つまり": "ゴチャゴチャゆうとる場合やあれへん，要は",
+	"つまらない": "しょーもない",
+	"であった": "やった",
+	"ている": "とる",
+	"ていただいた": "てもろた",
+	"ていただきます": "てもらうで",
+	"ていただく": "てもらうで",
+	"ていただ": "ていただ",
+	"ていた": "とった",
+	"多く": "ようけ",
+	"ですか": "やろか",
+	"ですよ": "や",
+	"ですが": "やけどアンタ",
+	"ですね": "やね",
+	"でした": "やった",
+	"でしょう": "でっしゃろ",
+	"できない": "でけへん",
+	"ではない": "ではおまへん",
+	"です": "や",
+	"てない": "てへん",
+	"どういうわけか": "なんでやろかわいもよーしらんが",
+	"どうだ": "どや",
+	"どうなの": "どうなん",
+	"どこか": "どこぞ",
+	"どんな": "どないな",
+	"という": "ちう",
+	"とすれば": "とするやろ，ほしたら",
+	"ところが": "トコロが",
+	"ところ": "トコ",
+	"とても": "どエライ",
+	"なぜか": "なんでやろかわいもよーしらんが",
+	"なった": "なりよった",
+	"なのですが": "なんやけど",
+	"なのです": "なんやこれがホンマに",
+	"なので": "やので",
+	"なぜ": "なんでやねん",
+	"など": "やらなんやら",
+	"ならない": "ならへん",
+	"なりました": "なったんや",
+	"なれた?": "なれたん?",
+	"なれた？": "なれたん？",
+	"なんでも": "何ぞしら",
+	"のちほど": "ノチカタ",
+	"のです": "のや",
+	"はじめまして": "はじめてお目にかかりまんなあ",
+	"ひとたち": "ヤカラ",
+	"人たち": "ヤカラ",
+	"人達": "ヤカラ",
+	"ヘルプ": "助け船",
+	"ほんとう": "ホンマ",
+	"ほんと": "ホンマ",
+	"まいますので": "まうさかいに",
+	"まったく": "まるっきし",
+	"全く": "まるっきし",
+	"ません": "まへん",
+	"ました": "たんや",
+	"ますか": "まっしゃろか",
+	"ますが": "まっけど",
+	"ましょう": "まひょ",
+	"ますので": "よるさかいに",
+	"むずかしい": "ややこしい",
+	"めない": "めへん",
+	"もらった": "もろた",
+	"もらって": "もろて",
+	"ります": "るんや",
+	"らない": "りまへん",
+	"りない": "りまへん",
+	"れない": "れへん",
+	"ます": "まんねん",
+	"もっとも": "もっとも",
+	"ようやく": "ようやっと",
+	"よろしく": "よろしゅう",
+	"るのです": "るちうワケや",
+	"だ。": "や。",
+	"りました": "ったんや",
+	"る。": "るちうわけや。",
+	"い。": "いちゅうわけや。",
+	"た。": "たちうわけや。",
+	"う。": "うわ。",
+	"わがまま": "ワガママ",
+	"まま": "まんま",
+	"われわれ": "ウチら",
+	"わたし": "わい",
+	"わない": "いまへん",
+	"全て": "みな",
+	"全部": "ぜええんぶひとつのこらず",
+	"全然": "さらさら",
+	"ぜんぜん": "サラサラ",
+	"大変な": "エライ",
+	"大変": "エライ",
+	"非常に": "どエライ",
+	"違う": "ちゃう",
+	"私": "わい",
+	"古い": "古くさい",
+	"最近": "きょうび",
+	"以前": "エライ昔",
+	"無効": "チャラ",
+	"中止": "ヤメ",
+	"海外": "アチラ",
+	"難しい": "ややこしい",
+	"遅い": "とろい",
+	"良い": "ええ",
+	"入れる": "ぶちこむ",
+	"来た": "来よった",
+	"同時": "いっぺん",
+	"先頭": "アタマ",
+	"置換": "とっかえ",
+	"注意": "用心",
+	"最後": "ケツ",
+	"我々": "うちら",
+	"初心者": "どシロウト",
+	"付属": "オマケ",
+	"誤って": "あかーんいうて誤って",
+	"商人": "あきんど",
+	"商売": "ショーバイ",
+	"商業": "ショーバイ",
+	"誰": "どなたはん",
+	"再度": "もっかい",
+	"再び": "もっかい",
+	"自動的に": "なあんもせんとホッタラかしといても",
+	"無料": "タダ",
+	"変化": "変身",
+	"自分": "オノレ",
+	"失敗": "シッパイ",
+	"優先": "ヒイキ",
+	"特長": "ええトコ",
+	"概要": "おーまかなトコ",
+	"概念": "能書き",
+	"アルゴリズム": "理屈",
+	"実用的": "アホでも使えるよう",
+	"何も": "なあんも",
+	"何か": "何ぞ",
+	"子供": "ボウズ",
+	"いい": "ええ"
+};
+var powero = false;
+
+function osakaaa() {
+	if (powero == false) {
+		show_notice({
+			msg: "大阪弁botをオンにしました。"
+		}, 4000)
+		send = function () {
+            clear_fnc_validator('div_msg');
+            var msg = $('#comment').val();
+            if (img_src2) {
+                var imgStructure = img_src2.split(',');
+                if (imgStructure.length == 2) {
+                    var str = imgStructure[0];
+                    str = str.replace("data:image/", "");
+                    str = str.replace(";base64", "");
+                    if (str == "jpeg" || str == "png" || str == "gif") {
+                    } else {
+                        alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
+                        return;
+                    }
+                } else {
+                    alert('添付画像エラー。選択された画像をご確認ください');
+                    return;
+                }
+            }
+            var character_name = "";
+            if (gloval_character_name[selected_my_icon]) {
+                character_name = gloval_character_name[selected_my_icon];
+            }
+            var osaka = msg;
+            var osaka1 = osaka;
+
+            for (var key in replacements) {
+                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+            }
+
+            var data = {
+                comment: osaka1,
+                type: "1",
+                room_id: disp_room_id,
+                img: img_src2,
+                img_no: selected_my_icon,
+                character_name: "大阪弁変換bot"
+            };
+            socket.json.emit('send', data);
+            send_anime(uid);
+            $('#comment').val("");
+            img_src2 = "";
+            $('#i_file2').val("");
+            $('#uv').val("");
+            $('#uv').hide();
+            $('#file_span2').html("");
+            if (_MY_SP_ == 1) {
+                $('#comment').blur();
+                $('#box2 .tabs').show();
+            }
+            check_room_list_update();
+        }
+
+		send_pvm = function () {
+            var msg = $('#i_pvt_msg').val();
+            var osaka = msg;
+            var osaka1 = osaka;
+
+            for (var key in replacements) {
+                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+            }
+
+            socket.json.emit('send_pvt_message', {
+                'selected_uid': selected_uid,
+                'msg': osaka1,
+                'pvm_type': 1,
+                'img_no': selected_my_icon
+            });
+            $('#i_pvt_msg').val("");
+            clear_fnc_validator("d_pvt_msg");
+        }
+
+		status_change = function (status) {
+            if (status == "なし") {
+                status = "";
+            }
+            var osaka = status;
+            var osaka1 = osaka;
+
+            for (var key in replacements) {
+                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+            }
+
+            var data = {
+                'status': osaka1,
+                'room_id': disp_room_id
+            };
+            socket.json.emit('change_status', data);
+            $('#user_status_window').hide();
+        }
+
+        var statusUl = document.getElementById("status_table");
+        var statusList = statusUl.getElementsByTagName("li");
+        var newStatus = [
+            "なし",
+            "離席中や",
+            "食事中や",
+            "トイレ中や",
+            "勉強中や",
+            "仕事中や",
+            "作業中や",
+            "ゲーム中や",
+            "読書中や",
+            "TV中や",
+            "ROM中や",
+            "入浴中や",
+            "家事中や",
+            "メール中や",
+            "挨拶不要ROMや",
+            "話しかけへんでくれお願いな",
+            "休憩中や",
+            "就寝中や"
+        ];
+
+        for (var i = 0; i < statusList.length; i++) {
+            statusList[i].textContent = newStatus[i];
+        }
+
+        powero = true;
+	} else {
+		show_notice({
+			msg: "大阪弁botをオフにしました。"
+		}, 4000)
+		send = function () {
+            clear_fnc_validator('div_msg');
+            var msg = $('#comment').val();
+            if (img_src2) {
+                var imgStructure = img_src2.split(',');
+                if (imgStructure.length == 2) {
+                    var str = imgStructure[0];
+                    str = str.replace("data:image/", "");
+                    str = str.replace(";base64", "");
+                    if (str == "jpeg" || str == "png" || str == "gif") {
+                    } else {
+                        alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
+                        return;
+                    }
+                } else {
+                    alert('添付画像エラー。選択された画像をご確認ください');
+                    return;
+                }
+            }
+            var character_name = "";
+            if (gloval_character_name[selected_my_icon]) {
+                character_name = gloval_character_name[selected_my_icon];
+            }
+            var data = {
+                comment: msg,
+                type: "1",
+                room_id: disp_room_id,
+                img: img_src2,
+                img_no: selected_my_icon,
+                character_name: character_name
+            };
+            socket.json.emit('send', data);
+            send_anime(uid);
+            $('#comment').val("");
+            img_src2 = "";
+            $('#i_file2').val("");
+            $('#uv').val("");
+            $('#uv').hide();
+            $('#file_span2').html("");
+            if (_MY_SP_ == 1) {
+                $('#comment').blur();
+                $('#box2 .tabs').show();
+            }
+            check_room_list_update();
+        }
+
+		send_pvm = function () {
+            var msg = $('#i_pvt_msg').val();
+            socket.json.emit('send_pvt_message', {
+                'selected_uid': selected_uid,
+                'msg': msg,
+                'pvm_type': 1,
+                'img_no': selected_my_icon
+            });
+            $('#i_pvt_msg').val("");
+            clear_fnc_validator("d_pvt_msg");
+        }
+
+		status_change = function (status) {
+            if (status == "なし") {
+                status = "";
+            }
+            var data = {
+                'status': status,
+                'room_id': disp_room_id
+            };
+            socket.json.emit('change_status', data);
+            $('#user_status_window').hide();
+        }
+
+        var statusUl = document.getElementById("status_table");
+        var statusList = statusUl.getElementsByTagName("li");
+        var newStatus = [
+            "なし",
+            "離席中",
+            "食事中",
+            "トイレ中",
+            "勉強中",
+            "仕事中",
+            "作業中",
+            "ゲーム中",
+            "読書中",
+            "TV中",
+            "ROM中",
+            "入浴中",
+            "家事中",
+            "メール中",
+            "挨拶不要ROM",
+            "話しかけないでお願い",
+            "休憩中",
+            "就寝中"
+        ];
+
+        for (var i = 0; i < statusList.length; i++) {
+            statusList[i].textContent = newStatus[i];
+        }
+
+        powero = false;
+    }
+}
