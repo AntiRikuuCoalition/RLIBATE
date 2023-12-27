@@ -1,9 +1,13 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2023/12/17.
+Update at 2023/12/27.
 ver β1.0.
  */
+
+//定義
+
+var napv = "v0.0";
 
 //邪魔なアカウント作成メッセージ削除&ログインメッセージ変更
 
@@ -658,6 +662,7 @@ function openNewTab() {
 var button = document.querySelector("#tab_other span");
 button.addEventListener("click", openNewTab);
 
+
 //大阪弁bot(nrajs様より)
 var toolButtonA = document.createElement('button');
 toolButtonA.id = 'tool_btn_a';
@@ -1187,3 +1192,101 @@ function osakaaa() {
         powero = false;
     }
 }
+
+//キーファンクション機能
+document.addEventListener('keydown', function (event) {
+	if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+		return;
+	}
+
+	// ナポレオン砲
+	if (event.key === 'V' && event.shiftKey) {
+		if (!event.repeat) {
+			if (sending1 == true) {
+				sending1 = false;
+				alert("砲撃を中止しました。");
+			} else {
+				vand();
+			}
+		}
+	}
+
+	// プライベートメッセージ手動
+	if (event.key === 'P' && event.shiftKey) {
+		if (!event.repeat) {
+			oppv();
+		}
+	}
+});
+
+//ナポレオン砲 v0.0
+var sending1 = false;
+function vand () {
+	var result1 = window.confirm('ナポレオン砲' + napv + "を起動しますか?\n※誤起動の場合はキャンセルを押してください。");
+	if (result1) {
+		var msg = prompt("砲撃に使用する文を入力してください。");
+		var num = prompt("砲撃回数を入力してください。");
+		var rom = prompt("砲撃する部屋を入力してください。\n注:部屋名ではなくて部屋番号です。\n(この部屋で砲撃する場合は空欄にしてもいいです。)");
+		if (rom === "") {
+			var rom = disp_room_id;
+		} else { }
+		var ico = prompt("砲撃で使用するアイコンの番号を入力してください。\n(新規アイコンの場合は何も入力しないでいいです。)");
+		var result2 = window.confirm('以下の内容で砲撃しますか?\n砲撃文:' + msg + "\n砲撃回数:" + num + "\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico + "\n※砲撃をやめる場合はキャンセルを、砲撃中に砲撃中止をする場合はShift+Vをもう一度押してください。");
+		if (result2) {
+			sending1 = true;
+			let count = 0;
+			function loop() {
+				if (count < num) {
+					if (sending1 == true) {
+						console.log("投稿文:" + msg + "\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico);
+						count++;
+						setTimeout(loop, 0);
+					}
+				} else {
+					sending1 = false;
+				}
+			}
+			loop();
+		}
+		else { }
+
+	}
+	else {}
+};
+
+//プライベートメッセージ
+function oppv() {
+	var id1 = prompt("プライベートメッセージを開きたいアカウントのIDを入力してください。\n※IDとはアカウント名ではなく例:\n5424e6a7969d48ef3baadbdf\nのような感じのものです。入手方法についてはヘルプに書いてあります。");
+	open_pvm(id1, "1", "");
+}
+
+//時計機能
+
+var clock = document.createElement('div');
+clock.id = 'clock';
+clock.style.display = 'inline';
+clock.style.color = 'white';
+clock.style.fontSize = '13pt';
+
+function updateClock() {
+	var date = new Date();
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	var ampm = hours >= 12 ? '午後' : '午前';
+	hours = hours % 12;
+	hours = hours ? hours : 12;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
+	seconds = seconds < 10 ? '0' + seconds : seconds;
+
+	clock.textContent = ampm + ' ' + hours + '時 ' + minutes + '分 ' + seconds + '秒';
+}
+
+setInterval(updateClock, 500);
+
+var myinfowrap = document.getElementById("myinfowrap");
+myinfowrap.insertBefore(clock, myinfowrap.firstChild);
+
+//吹き出しが消えなかった時のための削除ツール
+var myinfowrap_fikidashi = document.getElementById("myinfowrap_fikidashi");
+myinfowrap_fikidashi.parentNode.removeChild(myinfowrap_fikidashi);
