@@ -1,13 +1,181 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2023/12/27.
+Update at 2023/12/31.
 ver β1.0.
  */
+
+//403検出
+if (document.title === "403 Forbidden") {
+	// タイトルを変更
+	document.title = "403エラー | NETROOM Dark version　　　　";
+
+	// HTMLのボディタグ内のコンテンツを変更
+	document.body.innerHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>403エラー | NETROOM Dark version　　　　</title>
+  <link rel="stylesheet" href="styles.css">
+    <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.notice {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+}
+    </style>
+</head>
+<body>
+  <h1>403エラー - あなたは管理人にbanされました。</h1>
+  <div class="notice">
+    <h2>重要なお知らせ</h2>
+    <p>このページは管理人によるbanを検知した場合のみ表示されます。もしこの検知が誤作動なら一旦スクリプトをオフにして私のもとへ連絡してください。もしスクリプトをオフにしても403エラーが表示されるようであればあなたは管理人にbanされたことになります。もしバンされてしまった場合は<a href="https://reachat.org/?8eaab49d4fa50c3d6ca8dd40c26b3a75,300,20,1">ここ</a>にお問い合わせください。</p>
+  </div>
+  <div class="notice">
+    <h2>403エラーとはなんぞや</h2>
+    <p>403エラーは、HTTPのステータスコードの1つで、クライアントがリクエストしたリソースへのアクセスが拒否されたことを示します。サーバーがクライアントに対して、リクエストされたリソースへのアクセス権がないことを通知するために使用されます。<br>
+<br>
+主な理由としては以下のようなものが考えられます：<br>
+<br>
+1. アクセス権限の不足：サーバーがクライアントにリソースへのアクセス権を与えていない場合、403エラーが発生します。例えば、ユーザーが特定のディレクトリやファイルにアクセスするために必要な認証情報を提供していない場合などが該当します。<br>
+<br>
+2. IPアドレスのブロック：サーバーが特定のIPアドレスからのアクセスを制限している場合、403エラーが発生します。これは、セキュリティ上の理由や、適切なアクセス制御を実施するために行われることがあります。<br>
+<br>
+3. リソースの存在確認：サーバーは要求されたリソースが存在するかどうかを確認し、存在しない場合は403エラーを返すこともあります。これは、存在しないリソースへのアクセスを防ぐために行われることがあります。<br>
+<br>
+4. スクリプトやアクセスルールのエラー：サイトの運営者が、誤ったアクセス制御の設定を行ったり、アクセス制御を管理するためのスクリプトにエラーがある場合、403エラーが発生する場合があります。<br>
+<br>
+403エラーが発生した場合、先ずは管理人に問い合わせてみるのが一番です。</p>
+  </div>
+  <script>
+function scrollTitle() {
+  const title = document.title;
+  const speed = 800;
+  let position = 0;  
+  setInterval(() => {
+    document.title = title.substring(position) + title.substring(0, position);
+    position++;
+    if (position >= title.length) {
+      position = 0;
+    }
+  }, speed);
+}
+scrollTitle();
+</script>
+</body>
+</html>
+  `;
+}
+
+//404検出
+
+if (document.title === "404 Not Found") {
+	// タイトルを変更
+	document.title = "404エラー | NETROOM Dark version　　　　";
+
+	// HTMLのボディタグ内のコンテンツを変更
+	document.body.innerHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>404エラー | NETROOM Dark version　　　　</title>
+  <link rel="stylesheet" href="styles.css">
+    <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.notice {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+}
+    </style>
+</head>
+<body>
+  <h1>404エラー - このページはありません。</h1>
+  <div class="notice">
+    <h2>重要なお知らせ</h2>
+    <p>このページはページが存在しない場合のみ表示されます。URLが間違っていないか、存在するページか確認してください。</p>
+  </div>
+  <div class="notice">
+    <h2>404エラーとはなんぞや</h2>
+    <p>404エラーは、HTTPのステータスコードの1つで、クライアントがリクエストしたリソースがサーバー上で見つからないことを示します。つまり、要求されたページやファイルが存在しない場合に表示されます。<br>
+<br>
+404エラーは、以下のような理由で発生することがあります：<br>
+<br>
+1. リソースの削除または移動：要求されたリソースが、サーバー上で削除されたか、別の場所に移動された場合、リンクやURLが更新されていない限り、404エラーが発生します。<br>
+<br>
+2. リクエストのタイプミスマッチ：クライアントがリソースに対して正しいHTTPメソッド（GET、POSTなど）を使用していない場合、404エラーが発生することがあります。例えば、存在しないリソースに対してPOSTリクエストを送信した場合などです。<br>
+<br>
+3. タイプミスまたは打ち間違い：URLの入力ミスやタイプミスによって、存在しないリソースを要求した場合、404エラーが発生します。<br>
+<br>
+4. リンクの切れたページ：別のWebサイトやページからのリンクが不正確または古くなっている場合、リンク先のリソースが見つからないため、404エラーが発生することがあります。<br>
+<br>
+404エラーは、クライアントに要求されたリソースが見つからなかったことを示し、サーバーがそのリソースが存在しないことを伝えます。一般的に、サイトの管理者は見つからないリソースに対する適切なエラーページをカスタマイズして表示することができます。</p>
+  </div>
+  <script>
+function scrollTitle() {
+  const title = document.title;
+  const speed = 800;
+  let position = 0;  
+  setInterval(() => {
+    document.title = title.substring(position) + title.substring(0, position);
+    position++;
+    if (position >= title.length) {
+      position = 0;
+    }
+  }, speed);
+}
+scrollTitle();
+</script>
+</body>
+</html>
+  `;
+}
 
 //定義
 
 var napv = "v0.0";
+
 
 //邪魔なアカウント作成メッセージ削除&ログインメッセージ変更
 
@@ -1217,6 +1385,13 @@ document.addEventListener('keydown', function (event) {
 			oppv();
 		}
 	}
+
+	//部屋検索ツール
+	if (event.key === 'F' && event.shiftKey) {
+		if (!event.repeat) {
+			romse();
+		}
+	}
 });
 
 //ナポレオン砲 v0.0
@@ -1231,6 +1406,8 @@ function vand () {
 			var rom = disp_room_id;
 		} else { }
 		var ico = prompt("砲撃で使用するアイコンの番号を入力してください。\n(新規アイコンの場合は何も入力しないでいいです。)");
+		var imm = prompt("画像を投稿する場合は画像のデータURLを入力してください。\n(ない場合は何も入力しないでいいです。)\n※データURLについては公式ホームページにて");
+		var nam = prompt("キャラクター名を入力してください。\n(使用しない場合空白で大丈夫です。)");
 		var result2 = window.confirm('以下の内容で砲撃しますか?\n砲撃文:' + msg + "\n砲撃回数:" + num + "\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico + "\n※砲撃をやめる場合はキャンセルを、砲撃中に砲撃中止をする場合はShift+Vをもう一度押してください。");
 		if (result2) {
 			sending1 = true;
@@ -1238,7 +1415,14 @@ function vand () {
 			function loop() {
 				if (count < num) {
 					if (sending1 == true) {
-						console.log("投稿文:" + msg + "\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico);
+						socket.json.emit('send', {
+							comment: msg,
+							type: "1",
+							room_id: rom,
+							img: imm,
+							img_no: ico,
+							character_name: nam
+						});
 						count++;
 						setTimeout(loop, 0);
 					}
@@ -1257,7 +1441,14 @@ function vand () {
 //プライベートメッセージ
 function oppv() {
 	var id1 = prompt("プライベートメッセージを開きたいアカウントのIDを入力してください。\n※IDとはアカウント名ではなく例:\n5424e6a7969d48ef3baadbdf\nのような感じのものです。入手方法についてはヘルプに書いてあります。");
-	open_pvm(id1, "1", "");
+	open_pvm(id1, "1","")
+}
+
+//部屋検索
+function romse() {
+	var category = prompt("こちらは部屋検索ツールです。カテゴリーを入力してください。(空白でも大丈夫です。)\n注意:カテゴリは一言一句一致しないといけません。その為実在しないものや打ち間違いなどがあった場合カテゴリは指定無しとして処理されます。")
+	var room_name = prompt("部屋名を入力してください。(空白でも大丈夫です。)")
+	get_list(category, room_name, "")
 }
 
 //時計機能
