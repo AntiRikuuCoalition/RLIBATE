@@ -1,176 +1,9 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2023/12/31.
+Update at 2024/1/2.
 ver β1.0.
  */
-
-//403検出
-if (document.title === "403 Forbidden") {
-	// タイトルを変更
-	document.title = "403エラー | NETROOM Dark version　　　　";
-
-	// HTMLのボディタグ内のコンテンツを変更
-	document.body.innerHTML = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>403エラー | NETROOM Dark version　　　　</title>
-  <link rel="stylesheet" href="styles.css">
-    <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-}
-
-.notice {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f0f0f0;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-p {
-  margin: 0;
-  font-size: 14px;
-}
-    </style>
-</head>
-<body>
-  <h1>403エラー - あなたは管理人にbanされました。</h1>
-  <div class="notice">
-    <h2>重要なお知らせ</h2>
-    <p>このページは管理人によるbanを検知した場合のみ表示されます。もしこの検知が誤作動なら一旦スクリプトをオフにして私のもとへ連絡してください。もしスクリプトをオフにしても403エラーが表示されるようであればあなたは管理人にbanされたことになります。もしバンされてしまった場合は<a href="https://reachat.org/?8eaab49d4fa50c3d6ca8dd40c26b3a75,300,20,1">ここ</a>にお問い合わせください。</p>
-  </div>
-  <div class="notice">
-    <h2>403エラーとはなんぞや</h2>
-    <p>403エラーは、HTTPのステータスコードの1つで、クライアントがリクエストしたリソースへのアクセスが拒否されたことを示します。サーバーがクライアントに対して、リクエストされたリソースへのアクセス権がないことを通知するために使用されます。<br>
-<br>
-主な理由としては以下のようなものが考えられます：<br>
-<br>
-1. アクセス権限の不足：サーバーがクライアントにリソースへのアクセス権を与えていない場合、403エラーが発生します。例えば、ユーザーが特定のディレクトリやファイルにアクセスするために必要な認証情報を提供していない場合などが該当します。<br>
-<br>
-2. IPアドレスのブロック：サーバーが特定のIPアドレスからのアクセスを制限している場合、403エラーが発生します。これは、セキュリティ上の理由や、適切なアクセス制御を実施するために行われることがあります。<br>
-<br>
-3. リソースの存在確認：サーバーは要求されたリソースが存在するかどうかを確認し、存在しない場合は403エラーを返すこともあります。これは、存在しないリソースへのアクセスを防ぐために行われることがあります。<br>
-<br>
-4. スクリプトやアクセスルールのエラー：サイトの運営者が、誤ったアクセス制御の設定を行ったり、アクセス制御を管理するためのスクリプトにエラーがある場合、403エラーが発生する場合があります。<br>
-<br>
-403エラーが発生した場合、先ずは管理人に問い合わせてみるのが一番です。</p>
-  </div>
-  <script>
-function scrollTitle() {
-  const title = document.title;
-  const speed = 800;
-  let position = 0;  
-  setInterval(() => {
-    document.title = title.substring(position) + title.substring(0, position);
-    position++;
-    if (position >= title.length) {
-      position = 0;
-    }
-  }, speed);
-}
-scrollTitle();
-</script>
-</body>
-</html>
-  `;
-}
-
-//404検出
-
-if (document.title === "404 Not Found") {
-	// タイトルを変更
-	document.title = "404エラー | NETROOM Dark version　　　　";
-
-	// HTMLのボディタグ内のコンテンツを変更
-	document.body.innerHTML = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>404エラー | NETROOM Dark version　　　　</title>
-  <link rel="stylesheet" href="styles.css">
-    <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-}
-
-.notice {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f0f0f0;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-p {
-  margin: 0;
-  font-size: 14px;
-}
-    </style>
-</head>
-<body>
-  <h1>404エラー - このページはありません。</h1>
-  <div class="notice">
-    <h2>重要なお知らせ</h2>
-    <p>このページはページが存在しない場合のみ表示されます。URLが間違っていないか、存在するページか確認してください。</p>
-  </div>
-  <div class="notice">
-    <h2>404エラーとはなんぞや</h2>
-    <p>404エラーは、HTTPのステータスコードの1つで、クライアントがリクエストしたリソースがサーバー上で見つからないことを示します。つまり、要求されたページやファイルが存在しない場合に表示されます。<br>
-<br>
-404エラーは、以下のような理由で発生することがあります：<br>
-<br>
-1. リソースの削除または移動：要求されたリソースが、サーバー上で削除されたか、別の場所に移動された場合、リンクやURLが更新されていない限り、404エラーが発生します。<br>
-<br>
-2. リクエストのタイプミスマッチ：クライアントがリソースに対して正しいHTTPメソッド（GET、POSTなど）を使用していない場合、404エラーが発生することがあります。例えば、存在しないリソースに対してPOSTリクエストを送信した場合などです。<br>
-<br>
-3. タイプミスまたは打ち間違い：URLの入力ミスやタイプミスによって、存在しないリソースを要求した場合、404エラーが発生します。<br>
-<br>
-4. リンクの切れたページ：別のWebサイトやページからのリンクが不正確または古くなっている場合、リンク先のリソースが見つからないため、404エラーが発生することがあります。<br>
-<br>
-404エラーは、クライアントに要求されたリソースが見つからなかったことを示し、サーバーがそのリソースが存在しないことを伝えます。一般的に、サイトの管理者は見つからないリソースに対する適切なエラーページをカスタマイズして表示することができます。</p>
-  </div>
-  <script>
-function scrollTitle() {
-  const title = document.title;
-  const speed = 800;
-  let position = 0;  
-  setInterval(() => {
-    document.title = title.substring(position) + title.substring(0, position);
-    position++;
-    if (position >= title.length) {
-      position = 0;
-    }
-  }, speed);
-}
-scrollTitle();
-</script>
-</body>
-</html>
-  `;
-}
 
 //定義
 
@@ -231,6 +64,63 @@ function change_disp_by_user_or_guest(data) {
 	}
 	get_page();
 	get_list(selected_category, searched_room_name, "")
+}
+
+//表示変更&代入
+roomnam = "";
+roomdes = "";
+lastupd = "";
+adminam = "";
+adminid = "";
+function show_room_name(res) {
+	roomnam = res.room_name;
+	roomdes = res.room_desc;
+	lastupd = res.room_update_time;
+	adminam = res.admi_name;
+	adminid = res.a_admi;
+	console.log(roomnam + roomdes + lastupd + adminam + adminid)
+	var room_id = res.room_id;
+	var w_permition = res.w_permition;
+	prev_room_id = disp_room_id;
+	disp_room_id = room_id;
+	leaved_room = "";
+	view_at_join_room(w_permition);
+	$('#room_title').html(res.room_name);
+	if (_MY_SP_ == '1') {
+		$('#room_title2').html(res.room_name)
+	}
+	var imgdata = "";
+	var html = "";
+	html += '<div class="comment"><div class="l">' + img_users_pict(res.a_admi[0],
+		res.admi_img_no) + '</div>';
+	html += '<div class="r">';
+	html += '<div class="comment_head"><span class="m_no">' +
+		'</span><span class="m_uname">' + res.admi_name +
+		'</span><span class="m_time">' + date_f(res.room_update_time) +
+		'</span><span class="m_time">' + adminid +
+		'</span></div>';
+	html += '<div class="comd">' + imgdata + comvert_msg(res.room_desc) + '</div>';
+	html += '</div></div>';
+	$('#room_desc').html(html);
+	var uid_data = {};
+	uid_data[res.a_admi[0]] = [res.admi_name, res.admi_img_no];
+	add_user_store(uid_data);
+	var a_admi = res.a_admi;
+	admi_flag = 0;
+	if (a_admi) {
+		for (var i = 0; i < a_admi.length; i++) {
+			if (a_admi[i] == uid) {
+				admi_flag = 1
+			}
+		}
+	}
+	if (admi_flag) {
+		sp_d_show();
+		$('#b_change_room_info').show()
+	} else {
+		$('#b_change_room_info').hide()
+	}
+	coloring_joined_room()
 }
 
 //時間の表示変更
@@ -845,11 +735,11 @@ toolButtonA.addEventListener('click', function () {
 // ツールボタンB
 var toolButtonB = document.createElement('button');
 toolButtonB.id = 'tool_btn_b';
-toolButtonB.textContent = 'ボタンb';
+toolButtonB.textContent = 'ログ保存';
 toolButtonB.style.display = 'inline';
 returnButton.parentNode.insertBefore(toolButtonB, returnButton.nextSibling);
 toolButtonB.addEventListener('click', function () {
-	console.log("ボタンb");
+	savelog();
 });
 
 // ツールボタンC
@@ -890,6 +780,17 @@ const cssCode1 =
 const styleElement1 = document.createElement('style');
 styleElement1.innerHTML = cssCode1;
 document.head.appendChild(styleElement1);
+
+function calculateTime(s) {
+	const dataPerSecond = 10000 / 60; // 1秒あたりのデータ数
+	const time = s / dataPerSecond; // 時間（秒）
+
+	const minutes = Math.floor(time / 60); // 分
+	const seconds = Math.round(time % 60); // 秒（四捨五入）
+
+	return `${minutes}分${seconds}秒`;
+}
+
 
 
 //大阪弁bot
@@ -1392,6 +1293,13 @@ document.addEventListener('keydown', function (event) {
 			romse();
 		}
 	}
+
+	//ログ保存ツール
+	if (event.key === 'S' && event.shiftKey) {
+		if (!event.repeat) {
+			savelog()
+		}
+	}
 });
 
 //ナポレオン砲 v0.0
@@ -1481,3 +1389,456 @@ myinfowrap.insertBefore(clock, myinfowrap.firstChild);
 //吹き出しが消えなかった時のための削除ツール
 var myinfowrap_fikidashi = document.getElementById("myinfowrap_fikidashi");
 myinfowrap_fikidashi.parentNode.removeChild(myinfowrap_fikidashi);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let total = "";
+var show_msg
+var intt = "";
+
+function record(ms) {
+	total += ms;
+}
+
+// 半透明な灰色の壁を作成する関数
+let overlay = null;
+let loadingText = null;
+
+function createOverlay() {
+	// オーバーレイ要素が既に存在する場合は削除する
+	if (overlay) {
+		overlay.remove();
+	}
+
+	// オーバーレイ要素の作成
+	overlay = document.createElement('div');
+	overlay.classList.add('overlay'); // クラス名を追加
+
+	// スタイルの設定
+	overlay.style.position = 'fixed';
+	overlay.style.top = '0';
+	overlay.style.left = '0';
+	overlay.style.width = '100%';
+	overlay.style.height = '100%';
+	overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+	overlay.style.zIndex = '9999';
+
+	// テキスト要素の作成
+	loadingText = document.createElement('div');
+	loadingText.style.color = '#ffffff';
+	loadingText.style.fontSize = '24px';
+	loadingText.style.textAlign = 'center';
+	loadingText.style.position = 'absolute';
+	loadingText.style.top = '50%';
+	loadingText.style.left = '50%';
+	loadingText.style.transform = 'translate(-50%, -50%)';
+
+	// オーバーレイ要素にテキスト要素を追加
+	overlay.appendChild(loadingText);
+
+	// ボディ要素にオーバーレイ要素を追加
+	document.body.appendChild(overlay);
+}
+
+
+// 変数の値を更新する関数
+function updateText(text) {
+	if (loadingText) {
+		loadingText.textContent = text;
+	}
+}
+
+
+// 半透明な灰色の壁を削除する関数
+function removeOverlay() {
+	let overlay = document.querySelector('.overlay');
+	if (overlay) {
+		document.body.removeChild(overlay);
+	}
+}
+
+let date_ka = "";
+var intlog = "";
+function savelog() {
+
+	// 時間
+	date_ka = function (date) {
+		let that = new Date(date);
+		let now = new Date();
+		let that_y = that.getFullYear();
+		let that_m = that.getMonth() + 1;
+		let that_d = that.getDate();
+		let that_h = that.getHours();
+		let that_mt = that.getMinutes();
+		let that_s = that.getSeconds() + that.getMilliseconds() / 1000;
+		let now_y = now.getFullYear();
+		let now_m = now.getMonth() + 1;
+		let now_d = now.getDate();
+
+		let datetime = '';
+
+		datetime += that_y + '年';
+		datetime += that_m + '月' + that_d + '日';
+		if (that_h < 10) {
+			that_h = '0' + that_h;
+		}
+
+		if (that_mt < 10) {
+			that_mt = '0' + that_mt;
+		}
+
+		if (that_s < 10) {
+			that_s = '0' + that_s.toFixed(2);
+		} else {
+			that_s = that_s.toFixed(2);
+		}
+
+		datetime += ' ' + that_h + '時' + that_mt + '分' + that_s + '秒';
+
+		return datetime;
+	}
+	//roomnam = "";
+	//roomdes = "";
+	//lastupd = "";
+	//adminam = "";
+	//adminid = "";date_ka(data.time)
+	// 保存ツール
+	let result2 = window.confirm('ログ保存ツールを起動しますか?\n※誤起動の場合はキャンセルを押してください。\n部屋名等が記録できない時があるのでヘルプページをご確認ください。');
+	if (result2) {
+		intlog = parseInt(prompt("ログの数(最後に投稿された投稿の数)を入力してください。"));
+		total = "";
+		createOverlay();
+		// 変数の値を更新
+		let myText = '保存中...';
+		updateText(myText);
+		const now = new Date();
+		const year = now.getFullYear();
+		const month = String(now.getMonth() + 1).padStart(2, '0');
+		const day = String(now.getDate()).padStart(2, '0');
+		const hours = String(now.getHours()).padStart(2, '0');
+		const minutes = String(now.getMinutes()).padStart(2, '0');
+		const seconds = String(now.getSeconds() + now.getMilliseconds() / 1000).padStart(2, '0');
+		const roundedSeconds = Math.round(seconds * 100) / 100;  // 小数点第三位を四捨五入
+
+		const timestamp = `${year}年${month}月${day}日 ${hours}時${minutes}分${roundedSeconds.toFixed(2)}秒`;
+		record("𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣ログ保存ツール v0.0\n\n保存日時:" + timestamp + "\n部屋ID:" + disp_room_id + "\n部屋名:" + roomnam + "\n部屋説明:\n" + roomdes + "\n管理者:" + adminam + "\n管理者アカウントのID:" + adminid + "\n部屋の最終更新:" + date_ka(lastupd) + "\n\n＿＿＿＿＿＿以降過去ログ\n\n");
+		let count = 0;
+		show_msg = function (room_id, res, ini_flag, target, nowHeight) {
+			for (var i = 0; i < res.length; i++) {
+				if (res[i]["comment"] != undefined) {
+					data = res[i];
+					if (data.uname == '') {
+						name = 'ゲスト'
+					} else {
+						name = data.uname;
+						if (data.character_name) {
+							name = data.character_name + '@' + name
+						}
+						var uid_data = {};
+						uid_data[data.uid] = [data.uname, data.img_no];
+						add_user_store(uid_data)
+					}
+					if (data.uid == "" || data.uid == "guest" || data.uid == undefined) {
+						data.img_no = 0;
+						var img = 'guest'
+					} else {
+						var img = data.uid
+					}
+					if (target == 1) {
+						var id_head = "oc"
+					} else {
+						var id_head = "c"
+					}
+				}
+
+				//data.bid ip
+				//date_ka(data.time) 時間
+				//name アカウント名
+				//comvert_msg(data.comment) コメント
+				//data.img_no 画像ID
+				//data.seq 回数
+				//data.uid アカウントID
+				//data._id 投稿ID
+
+			}
+			if (target == 1) {
+				intt = data.seq;
+				var intlog2 = intlog - 1;
+				// 変数の値を更新
+				let myText = '保存中...';
+				hya = intlog2 - data.seq;
+				updateText("保存中...\n" + data.seq + "/" + intlog2 + "　保存終了まであと約" + calculateTime(hya));
+				record(data.seq + "　" + date_ka(data.time) + "　投稿者名:" + name + "　アイコンID:" + data.img_no + "　アカウントID:" + data.uid + "　IP:" + data.bid + "\n投稿:\n" + data.comment + "\n\n");
+			}
+		}
+		intlog++
+		count = 1;
+		function loop2() {
+			if (count < intlog) {
+				socket.json.emit('one_msg', {
+					'seq': count,
+					'room_id': disp_room_id
+				});
+				count++;
+				setTimeout(loop2, 5);
+			} else {
+				updateText("処理中...");
+				setTimeout(() => {
+					saveTextFile("ログ保存ツール " + disp_room_id, total);
+					retumsg()
+					removeOverlay();
+				}, 3000);
+			}
+		}
+		loop2();
+	}
+	else { }
+}
+
+
+function saveTextFile(filename, text) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);
+}
+
+
+function retumsg() {
+	show_msg = function (room_id, res, ini_flag, target, nowHeight) {
+		$('.nonroom', $('#body')).each(function () {
+			$(this).show()
+		});
+		$('#d_received_msg').hide();
+		if (res.length == 0) {
+			$('#prev_page').hide();
+			$('#next_page').hide();
+			$_view.html('');
+			last_msg_seq[room_id] = 0;
+			$('#page_no').html('1ページ目');
+			disp_page = 1;
+			m_hide();
+			if (google_analytics) {
+				var url = "/" + room_id + "/";
+				ga('send', 'pageview', url)
+			}
+			if (room_id) {
+				var mode = 1;
+				pc_mode(mode)
+			} else {
+				var mode = 0;
+				pc_mode(mode)
+			}
+			return
+		}
+		var html = "";
+		var last_id = "";
+		var last_seq = 0;
+		for (var i = 0; i < res.length; i++) {
+			if (res[i]["comment"] != undefined) {
+				data = res[i];
+				if (data.uname == '') {
+					name = 'ゲスト'
+				} else {
+					name = data.uname;
+					if (data.character_name) {
+						name = data.character_name + '<span class="at_uname">@' + name + '</span>'
+					}
+					var uid_data = {};
+					uid_data[data.uid] = [data.uname, data.img_no];
+					add_user_store(uid_data)
+				}
+				if (data.uid == "" || data.uid == "guest" || data.uid == undefined) {
+					data.img_no = 0;
+					var img = 'guest'
+				} else {
+					var img = data.uid
+				}
+				if (target == 1) {
+					var id_head = "oc"
+				} else {
+					var id_head = "c"
+				}
+				if (data.img) {
+					var file = data.img;
+					var imgdata = '<br><img class="click_img" src="/img/tmp/' + room_id + '_' +
+						data["seq"] + '.jpg" >'
+				} else {
+					var imgdata = ""
+				}
+				var is_aa = '';
+				if (data.comment.indexOf('　 ') !== -1) {
+					is_aa = ' is_aa'
+				}
+				var ip = data.bid;
+				var u_id = data.uid;
+				html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
+				html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
+				html += '<div class="r">';
+				html += '<div class="comment_head"><span class="m_no">' + data["seq"] +
+					'</span><span class="m_uname">' + name + '</span><span class="m_time">' +
+					date_f(data.time) + '</span><span class="at_uname">　 ' + ip +
+					'</span><span class="m_time">　 ' + u_id + '</div>';
+				html += '<div class="comd' + is_aa + '">' + comvert_msg(data.comment) +
+					imgdata + '</div>';
+				html += '</div>';
+				html += '</div>';
+				last_id = 'c' + data["seq"];
+				last_seq = data["seq"] - 0
+			}
+		}
+		if (target == 1) {
+			$('#d_msg_one div.h').html(
+				'<div class="h clearfix ipop_title"><small class="link_pankuzu">≫' + data[
+				"seq"] +
+				'</small><div class="d_close"><span class="close" id="close_d_msg_one">&#12288;×&#12288;</span></div></div>'
+			);
+			$('#close_d_msg_one').unbind(_E.clickd);
+			$('#close_d_msg_one').bind(_E.clickd, function (e) {
+				e.preventDefault();
+				$('#d_msg_one').hide();
+				sp_d_hide()
+			});
+			$('#d_msg_one').show();
+			$('#ul_msg_one').html(html);
+			m_hide();
+			return
+		}
+		var page = get_parameter(1);
+		if (!page) {
+			last_msg_seq[room_id] = last_seq
+		}
+		var room_last_seq = last_msg_seq[room_id];
+		var this_last_seq = res[(res.length - 1)].seq;
+		if (ini_flag == 1 || ini_flag == 2) {
+			if (res[0]['seq'] <= 1) {
+				$('#prev_page').hide();
+				$('#totop2').hide()
+			} else {
+				$('#prev_page').show();
+				$('#totop2').show()
+			}
+			if ((!room_last_seq) || this_last_seq < room_last_seq) {
+				$('#next_page').show();
+				$('#tobottom2').show()
+			} else {
+				$('#next_page').hide();
+				$('#tobottom2').hide()
+			}
+		} else {
+			if (last_seq % msg_limit == 0) {
+				$('#next_page').show();
+				$('#tobottom2').show();
+				to_bottom('div_view', 0)
+			}
+		}
+		if (ini_flag == 1) {
+			$_view.html(html);
+			var page = which_page(last_seq);
+			$('#page_no').html(page + 'ページ目');
+			if (room_id) {
+				var mode = 1;
+				pc_mode(mode)
+			} else {
+				var mode = 0;
+				pc_mode(mode)
+			}
+		} else if (ini_flag == 2) {
+			$_view.html(html);
+			var page = which_page(last_seq);
+			$('#page_no').html(page + 'ページ目');
+			if (jump_bottom) {
+				to_bottom('div_view', 0)
+			} else {
+				to_top('div_view', 0)
+			}
+			now_page = which_page(last_seq)
+		} else {
+			var bandai = "";
+			var bandai2 = "";
+			var bandai = which_page(last_seq);
+			if (bandai == disp_page) {
+				if (_MY_SP_ != '1') {
+					var _cur_scroll = $("#div_view").scrollTop();
+					_cur_scroll = _cur_scroll;
+					var _max_scroll = $("#div_view_in").outerHeight() - $("#div_view").height() -
+						100
+				} else {
+					var _cur_scroll = window.pageYOffset + window.innerHeight;
+					_cur_scroll = _cur_scroll;
+					var _max_scroll = document.documentElement.scrollHeight;
+					_max_scroll = _max_scroll - 200
+				}
+				var _do_scroll = 0;
+				if (_max_scroll <= _cur_scroll) {
+					_do_scroll = 1
+				}
+				$_view.append(html);
+				if (_do_scroll == 1) {
+					if (_Android_) {
+						setTimeout('to_bottom("div_view",0)', 500)
+					} else {
+						to_bottom('div_view', 100)
+					}
+				} else {
+					now_received_msg[room_id] = res[0];
+					if (_Android_) {
+						if (document.activeElement.id != "comment") {
+							$('#d_received_msg').show();
+							$('#ul_received_msg').html(html)
+						}
+					} else {
+						$('#d_received_msg').show();
+						$('#ul_received_msg').html(html)
+					}
+				}
+			} else {
+				now_received_msg[room_id] = res[0];
+				if (_Android_) {
+					if (document.activeElement.id != "comment") {
+						$('#d_received_msg').show();
+						$('#ul_received_msg').html(html)
+					}
+				} else {
+					$('#d_received_msg').show();
+					$('#ul_received_msg').html(html)
+				}
+			}
+		}
+		m_hide();
+		if (ini_flag == 1 || ini_flag == 2) {
+			disp_page = which_page(last_seq);
+			var url_page = which_page(last_seq, room_id);
+			if (google_analytics) {
+				if (url_page) {
+					var url = "/" + room_id + "/" + url_page
+				} else {
+					var url = "/" + room_id + "/"
+				}
+				ga('send', 'pageview', url)
+			}
+		}
+	}
+}
