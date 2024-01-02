@@ -78,7 +78,6 @@ function show_room_name(res) {
 	lastupd = res.room_update_time;
 	adminam = res.admi_name;
 	adminid = res.a_admi;
-	console.log(roomnam + roomdes + lastupd + adminam + adminid)
 	var room_id = res.room_id;
 	var w_permition = res.w_permition;
 	prev_room_id = disp_room_id;
@@ -782,11 +781,11 @@ styleElement1.innerHTML = cssCode1;
 document.head.appendChild(styleElement1);
 
 function calculateTime(s) {
-	const dataPerSecond = 10000 / 60; // 1秒あたりのデータ数
+	const dataPerSecond = 20000 / 121; // 1秒あたりのデータ数
 	const time = s / dataPerSecond; // 時間（秒）
 
 	const minutes = Math.floor(time / 60); // 分
-	const seconds = Math.round(time % 60); // 秒（四捨五入）
+	const seconds = Math.floor(time % 60); // 秒（切り捨て）
 
 	return `${minutes}分${seconds}秒`;
 }
@@ -1537,7 +1536,7 @@ function savelog() {
 		const roundedSeconds = Math.round(seconds * 100) / 100;  // 小数点第三位を四捨五入
 
 		const timestamp = `${year}年${month}月${day}日 ${hours}時${minutes}分${roundedSeconds.toFixed(2)}秒`;
-		record("𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣ログ保存ツール v0.0\n\n保存日時:" + timestamp + "\n部屋ID:" + disp_room_id + "\n部屋名:" + roomnam + "\n部屋説明:\n" + roomdes + "\n管理者:" + adminam + "\n管理者アカウントのID:" + adminid + "\n部屋の最終更新:" + date_ka(lastupd) + "\n\n＿＿＿＿＿＿以降過去ログ\n\n");
+		record("𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣ログ保存ツール v0.0\n\n保存日時:" + timestamp + "\n部屋ID:" + disp_room_id + "\n部屋名:" + roomnam + "\n部屋説明:\n" + repa(roomdes) + "\n管理者:" + adminam + "\n管理者アカウントのID:" + adminid + "\n部屋の最終更新:" + date_ka(lastupd) + "\n\n＿＿＿＿＿＿以降過去ログ\n\n");
 		let count = 0;
 		show_msg = function (room_id, res, ini_flag, target, nowHeight) {
 			for (var i = 0; i < res.length; i++) {
@@ -1584,7 +1583,7 @@ function savelog() {
 				let myText = '保存中...';
 				hya = intlog2 - data.seq;
 				updateText("保存中...\n" + data.seq + "/" + intlog2 + "　保存終了まであと約" + calculateTime(hya));
-				record(data.seq + "　" + date_ka(data.time) + "　投稿者名:" + name + "　アイコンID:" + data.img_no + "　アカウントID:" + data.uid + "　IP:" + data.bid + "\n投稿:\n" + data.comment + "\n\n");
+				record(data.seq + "　" + date_ka(data.time) + "　投稿者名:" + name + "　アイコンID:" + data.img_no + "　アカウントID:" + data.uid + "　IP:" + data.bid + "\n投稿:\n" + repa(data.comment) + "\n\n");
 			}
 		}
 		intlog++
@@ -1609,6 +1608,11 @@ function savelog() {
 		loop2();
 	}
 	else { }
+}
+
+
+function repa(str) {
+	return str.replace(/&gt;/g, '>');
 }
 
 
