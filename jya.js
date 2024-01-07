@@ -1,13 +1,16 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2024/1/2.
-ver β1.0.
+Update at 2024/1/08.
+ver β1.8.
  */
 
 //定義
 
+//ナポレオン砲ばーじょん
 var napv = "v0.0";
+//六保存電源
+var logv = false;
 
 
 //邪魔なアカウント作成メッセージ削除&ログインメッセージ変更
@@ -72,6 +75,7 @@ roomdes = "";
 lastupd = "";
 adminam = "";
 adminid = "";
+
 function show_room_name(res) {
 	roomnam = res.room_name;
 	roomdes = res.room_desc;
@@ -96,7 +100,7 @@ function show_room_name(res) {
 	html += '<div class="comment_head"><span class="m_no">' +
 		'</span><span class="m_uname">' + res.admi_name +
 		'</span><span class="m_time">' + date_f(res.room_update_time) +
-		'</span><span class="m_time">' + adminid +
+		'</span><span class="m_time">　' + adminid +
 		'</span></div>';
 	html += '<div class="comd">' + imgdata + comvert_msg(res.room_desc) + '</div>';
 	html += '</div></div>';
@@ -589,21 +593,25 @@ $(document).keydown(function (e) {
 	isKeyPressed = true;
 
 	if (e.keyCode === 109) {
-		$('#user_list li').each(function () {
-			var member_id = $(this).attr("id");
-			socket.json.emit('send_anime', {
-				'uid': member_id,
-				'room_id': disp_room_id
+		if (logv == false) {
+			$('#user_list li').each(function () {
+				var member_id = $(this).attr("id");
+				socket.json.emit('send_anime', {
+					'uid': member_id,
+					'room_id': disp_room_id
+				});
 			});
-		});
+		}
 	} else if (e.keyCode === 111) {
-		$('#user_list li').each(function () {
-			var member_id = $(this).attr("id");
-			socket.json.emit('write_anime', {
-				'uid': member_id,
-				'room_id': disp_room_id
+		if (logv == false) {
+			$('#user_list li').each(function () {
+				var member_id = $(this).attr("id");
+				socket.json.emit('write_anime', {
+					'uid': member_id,
+					'room_id': disp_room_id
+				});
 			});
-		});
+		}
 	}
 });
 
@@ -674,7 +682,10 @@ function set_url_mode(room_id, page, title, cmd) {
 		title = 'Room List | NETROOM Dark version　　　　';
 	}
 
-	History.pushState({ room_id: room_id, page: page }, title, url_param);
+	History.pushState({
+		room_id: room_id,
+		page: page
+	}, title, url_param);
 
 	if (Number(url_page) < 1) {
 		twiFunc();
@@ -692,13 +703,15 @@ function set_url_mode(room_id, page, title, cmd) {
 //HTMLのタイトル画像変更
 
 var image = document.querySelector('#topimg_wrapper img');
-var newImageSrc = 'data:image/png;base64,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';
+var newImageSrc =
+	'data:image/png;base64,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';
 image.src = newImageSrc;
 
 //ファビコン変更
 
 var linkElement = document.querySelector('link[rel="shortcut icon"]');
-var newUrl = "data:image/png;base64,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";
+var newUrl =
+	"data:image/png;base64,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";
 linkElement.href = newUrl;
 
 //ロゴ変更
@@ -713,6 +726,7 @@ tabother.classList.add("tab");
 tabother.id = "tab_other";
 tabother.innerHTML = '<span>ヘルプ</span>';
 document.getElementById("box3").querySelector(".tabs").appendChild(tabother);
+
 function openNewTab() {
 	window.open("http://netroom.co.jp", "_blank");
 }
@@ -791,70 +805,123 @@ function calculateTime(s) {
 }
 
 
-
 //大阪弁bot
 powero = false;
 var replacements = {
 	"ありがとうございました": "おおきに",
+	"有難うございました": "おおきに",
+	"有り難うございました": "おおきに",
+	"有難う御座いました": "おおきに",
+	"有り難う御座いました": "おおきに",
 	"あなた": "あんさん",
+	"彼方": "あんさん",
+	"貴方": "あんさん",
+	"貴女": "あんさん",
+	"貴男": "あんさん",
 	"あんな": "あないな",
 	"りますので": "るさかいに",
 	"りますから": "るさかいに",
 	"あります": "あるんや",
+	"在ります": "あるんや",
+	"有ります": "あるんや",
+	"或ります": "あるんや",
 	"あるいは": "せやなかったら",
 	"或いは": "せやなかったら",
 	"ありません": "おまへん",
+	"在りません": "おまへん",
+	"有りません": "おまへん",
 	"ありました": "おました",
+	"在りました": "おました",
+	"有りました": "おました",
 	"いない": "おらへん",
+	"居ない": "おらへん",
 	"いままでの": "ムカシからの",
 	"いままで": "本日この時まで",
 	"今まで": "本日この時まで",
 	"今までの": "ムカシからの",
 	"いまどき": "きょうび",
+	"今時": "きょうび",
 	"いわゆる": "なんちうか，ようみなはんいわはるとこの",
+	"所謂": "なんちうか，ようみなはんいわはるとこの",
 	"思いますが": "思うんやが",
 	"思います": "思うで",
 	"いただいた": "もろた",
 	"いただきます": "もらうで",
 	"いただきました": "もろた",
+	"戴いた": "もろた",
+	"頂いた": "もろた",
+	"いただきます": "もらうで",
+	"頂きます": "もらうで",
+	"頂きます": "もらうで",
+	"いただきました": "もろた",
+	"頂きました": "もろた",
+	"戴きました": "もろた",
 	"いくら": "なんぼ",
+	"幾ら": "なんぼ",
 	"いるか": "おるか",
+	"居るか": "おるか",
 	"いますので": "おるさかいに",
 	"いますから": "おるさかいに",
+	"居ますので": "おるさかいに",
+	"居ますから": "おるさかいに",
 	"いちど": "いっぺん",
 	"一度": "いっぺん",
 	"いますが": "おるけどダンさん",
+	"居ますが": "おるけどダンさん",
 	"いました": "おったんや",
+	"居ました": "おったんや",
 	"います": "いまんねん",
+	"居ます": "いまんねん",
 	"えない": "えへん",
 	"おかしな": "ケッタイな",
+	"可笑しな": "ケッタイな",
 	"おきました": "おいたんや",
+	"置きました": "おいたんや",
+	"起きました": "おいたんや",
+	"おきた": "おいたんや",
+	"置いた": "おいたんや",
+	"起きた": "おいたんや",
 	"かなあ": "かいな",
 	"かならず": "じぇったい",
+	"かもな": "かもしれへんな",
+	"かもね": "かもしれへんな",
+	"かも。": "かもしれへんな",
+	"かも、": "かもしれへんな",
+	"かも.": "かもしれへんな",
+	"かも・": "かもしれへんな",
+	"必ず": "じぇったい",
 	"かわいい": "メンコイ",
+	"可愛い": "メンコイ",
 	"おそらく": "ワイが思うには",
 	"恐らく": "ワイが思うには",
 	"おもしろい": "オモロイ",
 	"面白い": "おもろい",
 	"ください": "おくんなはれ",
+	"下さい": "おくんなはれ",
 	"詳しく": "ねちっこく",
 	"くわしく": "ねちっこく",
 	"けない": "けへん",
 	"ございます": "おます",
 	"ございました": "おました",
+	"御座います": "おます",
+	"御座いました": "おました",
 	"こちら": "ウチ",
+	"此方": "ウチ",
 	"こんな": "こないな",
 	"この頃": "きょうび",
 	"このごろ": "きょうび",
 	"下さい": "くれへんかの",
 	"さようなら": "ほなさいなら",
+	"左様なら": "ほなさいなら",
 	"さん": "はん",
 	"しかし": "せやけどダンさん",
+	"然し": "せやけどダンさん",
 	"しかたない": "しゃあない",
 	"仕方ない": "しゃあない",
 	"しなければ": "せな",
 	"しない": "せん",
 	"しばらく": "ちーとの間",
+	"暫く": "ちーとの間",
 	"している": "しとる",
 	"しました": "したんや",
 	"しまいました": "しもたんや",
@@ -862,9 +929,10 @@ var replacements = {
 	"しますと": "すやろ，ほしたら",
 	"しまった": "しもた",
 	"しますので": "するさかいに",
-	"じゃ": "や",
 	"するとき": "するっちうとき",
+	"する時": "するっちうとき",
 	"すべて": "ずぅぇえええぇぇええんぶ",
+	"全て": "ずぅぇえええぇぇええんぶ",
 	"すくなくとも": "なんぼなんでも",
 	"少なくとも": "なんぼなんでも",
 	"ずに": "んと",
@@ -872,6 +940,7 @@ var replacements = {
 	"少し": "ちびっと",
 	"せない": "せへん",
 	"そこで": "ほんで",
+	"其処で": "ほんで",
 	"そして": "ほんで",
 	"そんな": "そないな",
 	"そうだろ": "そうやろ",
@@ -882,8 +951,11 @@ var replacements = {
 	"たのです": "たちうワケや",
 	"たので": "たさかい",
 	"ただし": "せやけど",
+	"但し": "せやけど",
 	"たぶん": "タブン．．．たぶんやで，わいもよーしらんがタブン",
+	"多分": "タブン．．．たぶんやで，わいもよーしらんがタブン",
 	"たくさん": "ようけ",
+	"沢山": "ようけ",
 	"だった": "やった",
 	"だけど": "やけど",
 	"だから": "やから",
@@ -893,13 +965,16 @@ var replacements = {
 	"だろ": "やろ",
 	"だね。": "やね。",
 	"ちなみに": "余計なお世話やけど",
+	"因みに": "余計なお世話やけど",
 	"ちょっと": "ちーとばかし",
+	"一寸": "ちーとばかし",
 	"ったし": "ったことやねんし",
 	"つまり": "ゴチャゴチャゆうとる場合やあれへん，要は",
 	"つまらない": "しょーもない",
 	"であった": "やった",
 	"ている": "とる",
 	"ていただいた": "てもろた",
+	"て頂きます": "てもらうで",
 	"ていただきます": "てもらうで",
 	"ていただく": "てもらうで",
 	"ていただ": "ていただ",
@@ -916,9 +991,11 @@ var replacements = {
 	"です": "や",
 	"てない": "てへん",
 	"どういうわけか": "なんでやろかわいもよーしらんが",
+	"どういう訳か": "なんでやろかわいもよーしらんが",
 	"どうだ": "どや",
 	"どうなの": "どうなん",
 	"どこか": "どこぞ",
+	"何処か": "どこぞ",
 	"どんな": "どないな",
 	"という": "ちう",
 	"とすれば": "とするやろ，ほしたら",
@@ -956,14 +1033,18 @@ var replacements = {
 	"ましょう": "まひょ",
 	"ますので": "よるさかいに",
 	"むずかしい": "ややこしい",
+	"難しい": "ややこしい",
 	"めない": "めへん",
 	"もらった": "もろた",
+	"貰った": "もろた",
 	"もらって": "もろて",
+	"貰って": "もろて",
 	"ります": "るんや",
 	"らない": "りまへん",
 	"りない": "りまへん",
 	"れない": "れへん",
 	"ます": "まんねん",
+	"先ず": "まんねん",
 	"もっとも": "もっとも",
 	"ようやく": "ようやっと",
 	"よろしく": "よろしゅう",
@@ -977,7 +1058,14 @@ var replacements = {
 	"わがまま": "ワガママ",
 	"まま": "まんま",
 	"われわれ": "ウチら",
+	"我々": "ウチら",
 	"わたし": "わい",
+	"私": "わい",
+	"ぼく": "わい",
+	"僕": "わい",
+	"我輩": "わい",
+	"吾輩": "わい",
+	"我が輩": "わい",
 	"わない": "いまへん",
 	"全て": "みな",
 	"全部": "ぜええんぶひとつのこらず",
@@ -987,7 +1075,6 @@ var replacements = {
 	"大変": "エライ",
 	"非常に": "どエライ",
 	"違う": "ちゃう",
-	"私": "わい",
 	"古い": "古くさい",
 	"最近": "きょうび",
 	"以前": "エライ昔",
@@ -1038,287 +1125,296 @@ function osakaaa() {
 			msg: "大阪弁botをオンにしました。"
 		}, 4000)
 		send = function () {
-            clear_fnc_validator('div_msg');
-            var msg = $('#comment').val();
-            if (img_src2) {
-                var imgStructure = img_src2.split(',');
-                if (imgStructure.length == 2) {
-                    var str = imgStructure[0];
-                    str = str.replace("data:image/", "");
-                    str = str.replace(";base64", "");
-                    if (str == "jpeg" || str == "png" || str == "gif") {
-                    } else {
-                        alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
-                        return;
-                    }
-                } else {
-                    alert('添付画像エラー。選択された画像をご確認ください');
-                    return;
-                }
-            }
-            var character_name = "";
-            if (gloval_character_name[selected_my_icon]) {
-                character_name = gloval_character_name[selected_my_icon];
-            }
-            var osaka = msg;
-            var osaka1 = osaka;
+			clear_fnc_validator('div_msg');
+			var msg = $('#comment').val();
+			if (img_src2) {
+				var imgStructure = img_src2.split(',');
+				if (imgStructure.length == 2) {
+					var str = imgStructure[0];
+					str = str.replace("data:image/", "");
+					str = str.replace(";base64", "");
+					if (str == "jpeg" || str == "png" || str == "gif") { } else {
+						alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
+						return;
+					}
+				} else {
+					alert('添付画像エラー。選択された画像をご確認ください');
+					return;
+				}
+			}
+			var character_name = "";
+			if (gloval_character_name[selected_my_icon]) {
+				character_name = gloval_character_name[selected_my_icon];
+			}
+			var osaka = msg;
+			var osaka1 = osaka;
 
-            for (var key in replacements) {
-                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
-            }
+			for (var key in replacements) {
+				osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+			}
 
-            var data = {
-                comment: osaka1,
-                type: "1",
-                room_id: disp_room_id,
-                img: img_src2,
-                img_no: selected_my_icon,
-                character_name: "大阪弁変換bot"
-            };
-            socket.json.emit('send', data);
-            send_anime(uid);
-            $('#comment').val("");
-            img_src2 = "";
-            $('#i_file2').val("");
-            $('#uv').val("");
-            $('#uv').hide();
-            $('#file_span2').html("");
-            if (_MY_SP_ == 1) {
-                $('#comment').blur();
-                $('#box2 .tabs').show();
-            }
-            check_room_list_update();
-        }
+			var data = {
+				comment: osaka1,
+				type: "1",
+				room_id: disp_room_id,
+				img: img_src2,
+				img_no: selected_my_icon,
+				character_name: "大阪弁変換bot"
+			};
+			socket.json.emit('send', data);
+			send_anime(uid);
+			$('#comment').val("");
+			img_src2 = "";
+			$('#i_file2').val("");
+			$('#uv').val("");
+			$('#uv').hide();
+			$('#file_span2').html("");
+			if (_MY_SP_ == 1) {
+				$('#comment').blur();
+				$('#box2 .tabs').show();
+			}
+			check_room_list_update();
+		}
 
 		send_pvm = function () {
-            var msg = $('#i_pvt_msg').val();
-            var osaka = msg;
-            var osaka1 = osaka;
+			var msg = $('#i_pvt_msg').val();
+			var osaka = msg;
+			var osaka1 = osaka;
 
-            for (var key in replacements) {
-                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
-            }
+			for (var key in replacements) {
+				osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+			}
 
-            socket.json.emit('send_pvt_message', {
-                'selected_uid': selected_uid,
-                'msg': osaka1,
-                'pvm_type': 1,
-                'img_no': selected_my_icon
-            });
-            $('#i_pvt_msg').val("");
-            clear_fnc_validator("d_pvt_msg");
-        }
+			socket.json.emit('send_pvt_message', {
+				'selected_uid': selected_uid,
+				'msg': osaka1,
+				'pvm_type': 1,
+				'img_no': selected_my_icon
+			});
+			$('#i_pvt_msg').val("");
+			clear_fnc_validator("d_pvt_msg");
+		}
 
 		status_change = function (status) {
-            if (status == "なし") {
-                status = "";
-            }
-            var osaka = status;
-            var osaka1 = osaka;
+			if (status == "なし") {
+				status = "";
+			}
+			var osaka = status;
+			var osaka1 = osaka;
 
-            for (var key in replacements) {
-                osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
-            }
+			for (var key in replacements) {
+				osaka1 = osaka1.replace(new RegExp(key, "g"), replacements[key]);
+			}
 
-            var data = {
-                'status': osaka1,
-                'room_id': disp_room_id
-            };
-            socket.json.emit('change_status', data);
-            $('#user_status_window').hide();
-        }
+			var data = {
+				'status': osaka1,
+				'room_id': disp_room_id
+			};
+			socket.json.emit('change_status', data);
+			$('#user_status_window').hide();
+		}
 
-        var statusUl = document.getElementById("status_table");
-        var statusList = statusUl.getElementsByTagName("li");
-        var newStatus = [
-            "なし",
-            "離席中や",
-            "食事中や",
-            "トイレ中や",
-            "勉強中や",
-            "仕事中や",
-            "作業中や",
-            "ゲーム中や",
-            "読書中や",
-            "TV中や",
-            "ROM中や",
-            "入浴中や",
-            "家事中や",
-            "メール中や",
-            "挨拶不要ROMや",
-            "話しかけへんでくれお願いな",
-            "休憩中や",
-            "就寝中や"
-        ];
+		var statusUl = document.getElementById("status_table");
+		var statusList = statusUl.getElementsByTagName("li");
+		var newStatus = [
+			"なし",
+			"離席中や",
+			"食事中や",
+			"トイレ中や",
+			"勉強中や",
+			"仕事中や",
+			"作業中や",
+			"ゲーム中や",
+			"読書中や",
+			"TV中や",
+			"ROM中や",
+			"入浴中や",
+			"家事中や",
+			"メール中や",
+			"挨拶不要ROMや",
+			"話しかけへんでくれお願いな",
+			"休憩中や",
+			"就寝中や"
+		];
 
-        for (var i = 0; i < statusList.length; i++) {
-            statusList[i].textContent = newStatus[i];
-        }
+		for (var i = 0; i < statusList.length; i++) {
+			statusList[i].textContent = newStatus[i];
+		}
 
-        powero = true;
+		powero = true;
 	} else {
 		show_notice({
 			msg: "大阪弁botをオフにしました。"
 		}, 4000)
 		send = function () {
-            clear_fnc_validator('div_msg');
-            var msg = $('#comment').val();
-            if (img_src2) {
-                var imgStructure = img_src2.split(',');
-                if (imgStructure.length == 2) {
-                    var str = imgStructure[0];
-                    str = str.replace("data:image/", "");
-                    str = str.replace(";base64", "");
-                    if (str == "jpeg" || str == "png" || str == "gif") {
-                    } else {
-                        alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
-                        return;
-                    }
-                } else {
-                    alert('添付画像エラー。選択された画像をご確認ください');
-                    return;
-                }
-            }
-            var character_name = "";
-            if (gloval_character_name[selected_my_icon]) {
-                character_name = gloval_character_name[selected_my_icon];
-            }
-            var data = {
-                comment: msg,
-                type: "1",
-                room_id: disp_room_id,
-                img: img_src2,
-                img_no: selected_my_icon,
-                character_name: character_name
-            };
-            socket.json.emit('send', data);
-            send_anime(uid);
-            $('#comment').val("");
-            img_src2 = "";
-            $('#i_file2').val("");
-            $('#uv').val("");
-            $('#uv').hide();
-            $('#file_span2').html("");
-            if (_MY_SP_ == 1) {
-                $('#comment').blur();
-                $('#box2 .tabs').show();
-            }
-            check_room_list_update();
-        }
+			clear_fnc_validator('div_msg');
+			var msg = $('#comment').val();
+			if (img_src2) {
+				var imgStructure = img_src2.split(',');
+				if (imgStructure.length == 2) {
+					var str = imgStructure[0];
+					str = str.replace("data:image/", "");
+					str = str.replace(";base64", "");
+					if (str == "jpeg" || str == "png" || str == "gif") { } else {
+						alert('添付画像エラー。画像は、jpg、png、gifのみ添付してください。');
+						return;
+					}
+				} else {
+					alert('添付画像エラー。選択された画像をご確認ください');
+					return;
+				}
+			}
+			var character_name = "";
+			if (gloval_character_name[selected_my_icon]) {
+				character_name = gloval_character_name[selected_my_icon];
+			}
+			var data = {
+				comment: msg,
+				type: "1",
+				room_id: disp_room_id,
+				img: img_src2,
+				img_no: selected_my_icon,
+				character_name: character_name
+			};
+			socket.json.emit('send', data);
+			send_anime(uid);
+			$('#comment').val("");
+			img_src2 = "";
+			$('#i_file2').val("");
+			$('#uv').val("");
+			$('#uv').hide();
+			$('#file_span2').html("");
+			if (_MY_SP_ == 1) {
+				$('#comment').blur();
+				$('#box2 .tabs').show();
+			}
+			check_room_list_update();
+		}
 
 		send_pvm = function () {
-            var msg = $('#i_pvt_msg').val();
-            socket.json.emit('send_pvt_message', {
-                'selected_uid': selected_uid,
-                'msg': msg,
-                'pvm_type': 1,
-                'img_no': selected_my_icon
-            });
-            $('#i_pvt_msg').val("");
-            clear_fnc_validator("d_pvt_msg");
-        }
+			var msg = $('#i_pvt_msg').val();
+			socket.json.emit('send_pvt_message', {
+				'selected_uid': selected_uid,
+				'msg': msg,
+				'pvm_type': 1,
+				'img_no': selected_my_icon
+			});
+			$('#i_pvt_msg').val("");
+			clear_fnc_validator("d_pvt_msg");
+		}
 
 		status_change = function (status) {
-            if (status == "なし") {
-                status = "";
-            }
-            var data = {
-                'status': status,
-                'room_id': disp_room_id
-            };
-            socket.json.emit('change_status', data);
-            $('#user_status_window').hide();
-        }
+			if (status == "なし") {
+				status = "";
+			}
+			var data = {
+				'status': status,
+				'room_id': disp_room_id
+			};
+			socket.json.emit('change_status', data);
+			$('#user_status_window').hide();
+		}
 
-        var statusUl = document.getElementById("status_table");
-        var statusList = statusUl.getElementsByTagName("li");
-        var newStatus = [
-            "なし",
-            "離席中",
-            "食事中",
-            "トイレ中",
-            "勉強中",
-            "仕事中",
-            "作業中",
-            "ゲーム中",
-            "読書中",
-            "TV中",
-            "ROM中",
-            "入浴中",
-            "家事中",
-            "メール中",
-            "挨拶不要ROM",
-            "話しかけないでお願い",
-            "休憩中",
-            "就寝中"
-        ];
+		var statusUl = document.getElementById("status_table");
+		var statusList = statusUl.getElementsByTagName("li");
+		var newStatus = [
+			"なし",
+			"離席中",
+			"食事中",
+			"トイレ中",
+			"勉強中",
+			"仕事中",
+			"作業中",
+			"ゲーム中",
+			"読書中",
+			"TV中",
+			"ROM中",
+			"入浴中",
+			"家事中",
+			"メール中",
+			"挨拶不要ROM",
+			"話しかけないでお願い",
+			"休憩中",
+			"就寝中"
+		];
 
-        for (var i = 0; i < statusList.length; i++) {
-            statusList[i].textContent = newStatus[i];
-        }
+		for (var i = 0; i < statusList.length; i++) {
+			statusList[i].textContent = newStatus[i];
+		}
 
-        powero = false;
-    }
+		powero = false;
+	}
 }
 
 //キーファンクション機能
 document.addEventListener('keydown', function (event) {
-	if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-		return;
-	}
+	if (logv == false) {
+		if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName ===
+			'TEXTAREA') {
+			return;
+		}
 
-	// ナポレオン砲
-	if (event.key === 'V' && event.shiftKey) {
-		if (!event.repeat) {
-			if (sending1 == true) {
-				sending1 = false;
-				alert("砲撃を中止しました。");
-			} else {
-				vand();
+		// ナポレオン砲
+		if (event.key === 'V' && event.shiftKey) {
+			if (!event.repeat) {
+				if (sending1 == true) {
+					sending1 = false;
+					alert("砲撃を中止しました。");
+				} else {
+					vand();
+				}
 			}
 		}
-	}
 
-	// プライベートメッセージ手動
-	if (event.key === 'P' && event.shiftKey) {
-		if (!event.repeat) {
-			oppv();
+		// プライベートメッセージ手動
+		if (event.key === 'P' && event.shiftKey) {
+			if (!event.repeat) {
+				oppv();
+			}
 		}
-	}
 
-	//部屋検索ツール
-	if (event.key === 'F' && event.shiftKey) {
-		if (!event.repeat) {
-			romse();
+		//部屋検索ツール
+		if (event.key === 'F' && event.shiftKey) {
+			if (!event.repeat) {
+				romse();
+			}
 		}
-	}
 
-	//ログ保存ツール
-	if (event.key === 'S' && event.shiftKey) {
-		if (!event.repeat) {
-			savelog()
+		//ログ保存ツール
+		if (event.key === 'S' && event.shiftKey) {
+			if (!event.repeat) {
+				savelog()
+			}
 		}
 	}
 });
 
 //ナポレオン砲 v0.0
 var sending1 = false;
-function vand () {
-	var result1 = window.confirm('ナポレオン砲' + napv + "を起動しますか?\n※誤起動の場合はキャンセルを押してください。");
+
+function vand() {
+	var result1 = window.confirm('ナポレオン砲' + napv +
+		"を起動しますか?\n※誤起動の場合はキャンセルを押してください。");
 	if (result1) {
 		var msg = prompt("砲撃に使用する文を入力してください。");
 		var num = prompt("砲撃回数を入力してください。");
-		var rom = prompt("砲撃する部屋を入力してください。\n注:部屋名ではなくて部屋番号です。\n(この部屋で砲撃する場合は空欄にしてもいいです。)");
+		var rom = prompt(
+			"砲撃する部屋を入力してください。\n注:部屋名ではなくて部屋番号です。\n(この部屋で砲撃する場合は空欄にしてもいいです。)");
 		if (rom === "") {
 			var rom = disp_room_id;
 		} else { }
 		var ico = prompt("砲撃で使用するアイコンの番号を入力してください。\n(新規アイコンの場合は何も入力しないでいいです。)");
-		var imm = prompt("画像を投稿する場合は画像のデータURLを入力してください。\n(ない場合は何も入力しないでいいです。)\n※データURLについては公式ホームページにて");
+		var imm = prompt(
+			"画像を投稿する場合は画像のデータURLを入力してください。\n(ない場合は何も入力しないでいいです。)\n※データURLについては公式ホームページにて"
+		);
 		var nam = prompt("キャラクター名を入力してください。\n(使用しない場合空白で大丈夫です。)");
-		var result2 = window.confirm('以下の内容で砲撃しますか?\n砲撃文:' + msg + "\n砲撃回数:" + num + "\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico + "\n※砲撃をやめる場合はキャンセルを、砲撃中に砲撃中止をする場合はShift+Vをもう一度押してください。");
+		var result2 = window.confirm('以下の内容で砲撃しますか?\n砲撃文:' + msg + "\n砲撃回数:" + num +
+			"\n砲撃標的:" + rom + "\n砲撃に使用するアイコン:" + ico +
+			"\n※砲撃をやめる場合はキャンセルを、砲撃中に砲撃中止をする場合はShift+Vをもう一度押してください。");
 		if (result2) {
 			sending1 = true;
 			let count = 0;
+
 			function loop() {
 				if (count < num) {
 					if (sending1 == true) {
@@ -1338,22 +1434,24 @@ function vand () {
 				}
 			}
 			loop();
-		}
-		else { }
+		} else { }
 
-	}
-	else {}
+	} else { }
 };
 
 //プライベートメッセージ
 function oppv() {
-	var id1 = prompt("プライベートメッセージを開きたいアカウントのIDを入力してください。\n※IDとはアカウント名ではなく例:\n5424e6a7969d48ef3baadbdf\nのような感じのものです。入手方法についてはヘルプに書いてあります。");
-	open_pvm(id1, "1","")
+	var id1 = prompt(
+		"プライベートメッセージを開きたいアカウントのIDを入力してください。\n※IDとはアカウント名ではなく例:\n5424e6a7969d48ef3baadbdf\nのような感じのものです。入手方法についてはヘルプに書いてあります。"
+	);
+	open_pvm(id1, "1", "")
 }
 
 //部屋検索
 function romse() {
-	var category = prompt("こちらは部屋検索ツールです。カテゴリーを入力してください。(空白でも大丈夫です。)\n注意:カテゴリは一言一句一致しないといけません。その為実在しないものや打ち間違いなどがあった場合カテゴリは指定無しとして処理されます。")
+	var category = prompt(
+		"こちらは部屋検索ツールです。カテゴリーを入力してください。(空白でも大丈夫です。)\n注意:カテゴリは一言一句一致しないといけません。その為実在しないものや打ち間違いなどがあった場合カテゴリは指定無しとして処理されます。"
+	)
 	var room_name = prompt("部屋名を入力してください。(空白でも大丈夫です。)")
 	get_list(category, room_name, "")
 }
@@ -1388,23 +1486,6 @@ myinfowrap.insertBefore(clock, myinfowrap.firstChild);
 //吹き出しが消えなかった時のための削除ツール
 var myinfowrap_fikidashi = document.getElementById("myinfowrap_fikidashi");
 myinfowrap_fikidashi.parentNode.removeChild(myinfowrap_fikidashi);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 let total = "";
@@ -1474,6 +1555,7 @@ function removeOverlay() {
 
 let date_ka = "";
 var intlog = "";
+
 function savelog() {
 
 	// 時間
@@ -1518,8 +1600,10 @@ function savelog() {
 	//adminam = "";
 	//adminid = "";date_ka(data.time)
 	// 保存ツール
-	let result2 = window.confirm('ログ保存ツールを起動しますか?\n※誤起動の場合はキャンセルを押してください。\n部屋名等が記録できない時があるのでヘルプページをご確認ください。');
+	let result2 = window.confirm(
+		'ログ保存ツールを起動しますか?\n※誤起動の場合はキャンセルを押してください。\n部屋名等が記録できない時があるのでヘルプページをご確認ください。');
 	if (result2) {
+		logv = true;
 		intlog = parseInt(prompt("ログの数(最後に投稿された投稿の数)を入力してください。"));
 		total = "";
 		createOverlay();
@@ -1532,11 +1616,16 @@ function savelog() {
 		const day = String(now.getDate()).padStart(2, '0');
 		const hours = String(now.getHours()).padStart(2, '0');
 		const minutes = String(now.getMinutes()).padStart(2, '0');
-		const seconds = String(now.getSeconds() + now.getMilliseconds() / 1000).padStart(2, '0');
-		const roundedSeconds = Math.round(seconds * 100) / 100;  // 小数点第三位を四捨五入
+		const seconds = String(now.getSeconds() + now.getMilliseconds() / 1000).padStart(
+			2, '0');
+		const roundedSeconds = Math.round(seconds * 100) / 100; // 小数点第三位を四捨五入
 
-		const timestamp = `${year}年${month}月${day}日 ${hours}時${minutes}分${roundedSeconds.toFixed(2)}秒`;
-		record("𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣ログ保存ツール v0.0\n\n保存日時:" + timestamp + "\n部屋ID:" + disp_room_id + "\n部屋名:" + roomnam + "\n部屋説明:\n" + repa(roomdes) + "\n管理者:" + adminam + "\n管理者アカウントのID:" + adminid + "\n部屋の最終更新:" + date_ka(lastupd) + "\n\n＿＿＿＿＿＿以降過去ログ\n\n");
+		const timestamp =
+			`${year}年${month}月${day}日 ${hours}時${minutes}分${roundedSeconds.toFixed(2)}秒`;
+		record("𝙉𝙀𝙏𝙍𝙊𝙊𝙈 𝘿𝙖𝙧𝙠 𝙫𝙚𝙧𝙨𝙞𝙤𝙣ログ保存ツール v0.0\n\n保存日時:" +
+			timestamp + "\n部屋ID:" + disp_room_id + "\n部屋名:" + roomnam + "\n部屋説明:\n" +
+			repa(roomdes) + "\n管理者:" + adminam + "\n管理者アカウントのID:" + adminid +
+			"\n部屋の最終更新:" + date_ka(lastupd) + "\n\n＿＿＿＿＿＿以降過去ログ\n\n");
 		let count = 0;
 		show_msg = function (room_id, res, ini_flag, target, nowHeight) {
 			for (var i = 0; i < res.length; i++) {
@@ -1582,12 +1671,16 @@ function savelog() {
 				// 変数の値を更新
 				let myText = '保存中...';
 				hya = intlog2 - data.seq;
-				updateText("保存中...\n" + data.seq + "/" + intlog2 + "　保存終了まであと約" + calculateTime(hya));
-				record(data.seq + "　" + date_ka(data.time) + "　投稿者名:" + name + "　アイコンID:" + data.img_no + "　アカウントID:" + data.uid + "　IP:" + data.bid + "\n投稿:\n" + repa(data.comment) + "\n\n");
+				updateText("保存中...\n" + data.seq + "/" + intlog2 + "　保存終了まであと約" +
+					calculateTime(hya));
+				record(data.seq + "　" + date_ka(data.time) + "　投稿者名:" + name + "　アイコンID:" +
+					data.img_no + "　アカウントID:" + data.uid + "　IP:" + data.bid + "\n投稿:\n" +
+					repa(data.comment) + "\n\n");
 			}
 		}
 		intlog++
 		count = 1;
+
 		function loop2() {
 			if (count < intlog) {
 				socket.json.emit('one_msg', {
@@ -1597,17 +1690,16 @@ function savelog() {
 				count++;
 				setTimeout(loop2, 5);
 			} else {
-				updateText("処理中...");
 				setTimeout(() => {
 					saveTextFile("ログ保存ツール " + disp_room_id, total);
 					retumsg()
 					removeOverlay();
+					logv = false;
 				}, 3000);
 			}
 		}
 		loop2();
-	}
-	else { }
+	} else { }
 }
 
 
@@ -1618,7 +1710,8 @@ function repa(str) {
 
 function saveTextFile(filename, text) {
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+		encodeURIComponent(text));
 	element.setAttribute('download', filename);
 
 	element.style.display = 'none';
@@ -1668,7 +1761,8 @@ function retumsg() {
 				} else {
 					name = data.uname;
 					if (data.character_name) {
-						name = data.character_name + '<span class="at_uname">@' + name + '</span>'
+						name = data.character_name + '<span class="at_uname">@' + name +
+							'</span>'
 					}
 					var uid_data = {};
 					uid_data[data.uid] = [data.uname, data.img_no];
@@ -1698,8 +1792,10 @@ function retumsg() {
 				}
 				var ip = data.bid;
 				var u_id = data.uid;
-				html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
-				html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
+				html += '<div id="' + id_head + data["seq"] +
+					'" class="comment clearfix" >';
+				html += '<div class="l">' + img_users_pict(data.uid, data.img_no) +
+					'</div>';
 				html += '<div class="r">';
 				html += '<div class="comment_head"><span class="m_no">' + data["seq"] +
 					'</span><span class="m_uname">' + name + '</span><span class="m_time">' +
