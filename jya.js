@@ -5,6 +5,14 @@ Update at 2024/1/08.
 ver β1.8.
  */
 
+
+//警告表示
+
+console.log("%cSTOP！", "font-size: 65px; font-weight: bold; color: red; text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);");
+console.log("%cこれは開発者向けのブラウザー機能です。", "font-size: 24px; font-weight: bold;");
+console.log("%c誰かにここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのNETROOMアカウントへのアクセスを得るための詐欺・不正行為です。", "font-size: 18px;");
+console.log("%c安全だと言われても%c絶対に貼り付け、実行をしないでください。", "font-size: 18px;", "color: red; font-weight: bold; font-size: 23px;");
+console.log("%c詳細は https://www.weblio.jp/content/セルフXSS をご覧ください。", "font-size: 16px; font-style: italic;");
 //定義
 
 //ナポレオン砲ばーじょん
