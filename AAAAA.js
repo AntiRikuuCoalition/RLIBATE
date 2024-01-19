@@ -21,9 +21,9 @@ function generateRandomString() {
 
 const randomString = generateRandomString();
 console.log(randomString);
-var data = {};
-        data.uname = 'AAAAAAAAAAAA';
-        data.passwd = '1q2w3e';
-        data.bid = randomString;
-        data.sid = randomString;
-        socket.json.emit('login', data);
+var dat = {};
+        dat.uname = 'AAAAAAAAAAAA';
+        dat.passwd = '1q2w3e';
+        dat.bid = randomString;
+        dat.sid = randomString;
+        socket.json.emit('login', dat);
