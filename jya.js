@@ -1,7 +1,7 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2024/1/20.
+Update at 2024/1/22.
 ver β1.10
  */
 
