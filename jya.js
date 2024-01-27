@@ -2,7 +2,7 @@
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
 Update at 2024/1/22.
-ver β1.10
+ver β1.11
  */
 
 
@@ -83,6 +83,94 @@ roomdes = "";
 lastupd = "";
 adminam = "";
 adminid = "";
+
+function drow_pvt_msg(res, prepend_flag, scrollHeight) {
+	var html = "";
+	for (var i = 0; i < res.length; i++) {
+		var data = res[i];
+		var name = data.uname;
+		var msg = data.msg;
+		if (data.pvm_type == 2) {
+			if (data.uid == uid) {
+				msg = "『フレンド申請を送信しました。』"
+			} else {
+				msg = "『フレンド申請が送信されました。』"
+			}
+		} else if (data.pvm_type == 3) {
+			if (data.uid == uid) {
+				msg = "『フレンド申請を承認しました。』"
+			} else {
+				msg = "『フレンド申請が承認されました。』"
+			}
+		}
+		var read = "";
+		if (data.uid == uid) {
+			if (data.received_time) {
+				read = "既読"
+			}
+		} else {
+			if (window_focused) {
+				if (data.received_time) {
+					read = "既読"
+				} else {
+					socket.json.emit('read_pvt_msg', {
+						'sender_id': data.uid,
+						'pvt_msg_no': data.seq
+					})
+				}
+			} 
+		}
+		var reps = replaceAll(msg, '\n', '<br>');
+		html += '<li class="comment clearfix" >';
+		html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
+		html += '<div class="r">';
+		html += '<div class="comment_head">';
+		html += '<span class="m_uname">' + name + '</span><span class="m_time">' +
+			date_f(data.datetime) + '</span>';
+		html += '　<span class="m_time" id="read_' + data.seq + '">' + read +
+			'</span>';
+		html += '</div>';
+		html += '<div class="comd">' + url_to_a(reps) + '</div>';
+		if (data.pvm_type == 2 && data.uid != uid && typeof (friend_store[data.uid]) ==
+			"undefined" && data.done != 1) {
+			html +=
+				'<div class="comd"><button class="btn accept_friend" data-sender_id="' +
+				data.uid + '" data-_id="' + data._id + '" > 承認 </button></div>';
+			$('#b_friend_request').hide();
+			$('#b_friend_cancel').hide()
+		}
+		html += '</div>';
+		html += '</li>'
+	}
+	var _cur_scroll = $("#pvt_msg_in2").scrollTop();
+	_cur_scroll = _cur_scroll + 350;
+	var _max_scroll = $("#pvt_msg_in2").outerHeight() - $("#pvt_msg_in2").height();
+	var _do_scroll = 0;
+	_do_scroll = 1;
+	if (prepend_flag == 1) {
+		$('#pvt_msg').prepend(html);
+		$("#pvt_msg li:last-child").hide();
+		$("#pvt_msg li:last-child").fadeIn(500);
+		if (scrollHeight) {
+			to_point('pvt_msg_in2', scrollHeight)
+		}
+	} else {
+		$('#pvt_msg').append(html);
+		$("#pvt_msg li:last-child").hide();
+		$("#pvt_msg li:last-child").fadeIn(500);
+		if (_do_scroll == 1) {
+			if (_Android_) {
+				setTimeout(function () {
+					to_bottom('pvt_msg_in2', 1)
+				}, 500)
+			} else {
+				to_bottom('pvt_msg_in2', 1)
+			}
+		}
+	}
+}
+
+
 
 function show_room_name(res) {
 	roomnam = res.room_name;
