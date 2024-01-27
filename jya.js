@@ -460,13 +460,13 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 			if (data.comment.indexOf('　 ') !== -1) {
 				is_aa = ' is_aa'
 			}
-			if (data.ip && data.ip.includes(".")) {
-				var ip = "i:" + data.ip;
-			} else if (data.bid && data.bid.includes(".")) {
-				var ip = "b:" + data.bid;
-			} else {
+//			if (data.ip && data.ip.includes(".")) {
+//				var ip = "i:" + data.ip;
+//			} else if (data.bid && data.bid.includes(".")) {
+//				var ip = "b:" + data.bid;
+//			} else {
 				var ip = "i:" + (data.ip || "") + " b:" + (data.bid || "");
-			}
+//			}
 			var u_id = data.uid;
 			html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
 			html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
