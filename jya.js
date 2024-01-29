@@ -460,8 +460,30 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 			if (data.comment.indexOf('　 ') !== -1) {
 				is_aa = ' is_aa'
 			}
-
+			if (data.ip && data.ip.includes(".")) {
+				var ip = "i:" + data.ip;
+			} else if (data.bid && data.bid.includes(".")) {
+				var ip = "b:" + data.bid;
+			} else {
 				var ip = "i:" + (data.ip || "") + " b:" + (data.bid || "");
+			}
+
+			if (data.ip && data.ip.includes(".")) {
+				var ip2 = data.ip;
+			} else if (data.bid && data.bid.includes(".")) {
+				var ip2 = data.bid;
+			} else {
+			}
+			var syounin = "";
+			if (ip2 === "133.114.35.230") {
+				var syounin = '<font color="red" size="1">→管理人様</font>'
+			}
+			if (data.uid === "5424e6a7969d48ef3baadbdf") {
+				var syounin = '<font color="red" size="1">→管理人様</font>'
+			}
+			
+			
+
 			var u_id = data.uid;
 			html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
 			html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
@@ -469,7 +491,7 @@ function show_msg(room_id, res, ini_flag, target, nowHeight) {
 			html += '<div class="comment_head"><span class="m_no">' + data["seq"] +
 				'</span><span class="m_uname">' + name + '</span><span class="m_time">' +
 				date_f(data.time) + '</span><span class="at_uname">　 ' + ip +
-				'</span><span class="m_time">　 ' + u_id + '</div>';
+				'</span>' + syounin + '<span class="m_time">　 ' + u_id + '</div>';
 			html += '<div class="comd' + is_aa + '">' + comvert_msg(data.comment) +
 				imgdata + '</div>';
 			html += '</div>';
@@ -1864,8 +1886,7 @@ function retumsg() {
 				} else {
 					name = data.uname;
 					if (data.character_name) {
-						name = data.character_name + '<span class="at_uname">@' + name +
-							'</span>'
+						name = data.character_name + '<span class="at_uname">@' + name + '</span>'
 					}
 					var uid_data = {};
 					uid_data[data.uid] = [data.uname, data.img_no];
@@ -1900,16 +1921,31 @@ function retumsg() {
 				} else {
 					var ip = "i:" + (data.ip || "") + " b:" + (data.bid || "");
 				}
+
+				if (data.ip && data.ip.includes(".")) {
+					var ip2 = data.ip;
+				} else if (data.bid && data.bid.includes(".")) {
+					var ip2 = data.bid;
+				} else {
+				}
+				var syounin = "";
+				if (ip2 === "133.114.35.230") {
+					var syounin = '<font color="red" size="1">→管理人様</font>'
+				}
+				if (data.uid === "5424e6a7969d48ef3baadbdf") {
+					var syounin = '<font color="red" size="1">→管理人様</font>'
+				}
+
+
+
 				var u_id = data.uid;
-				html += '<div id="' + id_head + data["seq"] +
-					'" class="comment clearfix" >';
-				html += '<div class="l">' + img_users_pict(data.uid, data.img_no) +
-					'</div>';
+				html += '<div id="' + id_head + data["seq"] + '" class="comment clearfix" >';
+				html += '<div class="l">' + img_users_pict(data.uid, data.img_no) + '</div>';
 				html += '<div class="r">';
 				html += '<div class="comment_head"><span class="m_no">' + data["seq"] +
 					'</span><span class="m_uname">' + name + '</span><span class="m_time">' +
 					date_f(data.time) + '</span><span class="at_uname">　 ' + ip +
-					'</span><span class="m_time">　 ' + u_id + '</div>';
+					'</span>' + syounin + '<span class="m_time">　 ' + u_id + '</div>';
 				html += '<div class="comd' + is_aa + '">' + comvert_msg(data.comment) +
 					imgdata + '</div>';
 				html += '</div>';
