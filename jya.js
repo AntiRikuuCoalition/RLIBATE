@@ -1,7 +1,7 @@
 /* 
 This tool made by AAAAAAAAAAAA.
 Made at 2023/12/06.
-Update at 2024/1/22.
+Update at 2024/1/31.
 ver β1.11
  */
 
@@ -853,7 +853,7 @@ tabother.innerHTML = '<span>ヘルプ</span>';
 document.getElementById("box3").querySelector(".tabs").appendChild(tabother);
 
 function openNewTab() {
-	window.open("http://netroom.co.jp", "_blank");
+	window.open("https://aaaaaaaaaaaanetroom.github.io/dark-help/", "_blank");
 }
 var button = document.querySelector("#tab_other span");
 button.addEventListener("click", openNewTab);
