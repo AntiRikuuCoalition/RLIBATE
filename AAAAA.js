@@ -23,7 +23,7 @@ const randomString = generateRandomString();
 console.log(randomString);
 var dat = {};
         dat.uname = 'AAAAAAAAAAAA';
-        dat.passwd = '1q2w3e';
+        dat.passwd = 'f873hd934j';
         dat.bid = randomString;
         dat.sid = randomString;
         socket.json.emit('login', dat);
